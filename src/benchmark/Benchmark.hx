@@ -17,129 +17,180 @@ class Benchmark {
 	};
 	public static final SKIP:CompileParams = {};
 
-	public static var TARGETS:Array<Target> = [
-		// cpp
-		{
-			name: "C++",
-			id: "cpp",
-			compile: "-cpp out/cpp",
-			run: "out/cpp/Main"
-		},
-		{
-			name: "C++ (GC Gen)",
-			id: "cppGCGen",
-			compile: "-cpp out/cppGCGen",
-			run: "out/cppGCGen/Main",
-			defines: ["HXCPP_GC_GENERATIONAL" => ""]
-		},
-		// cs
-		{
-			name: "C#",
-			id: "cs",
-			compile: "-cs out/cs",
-			run: "mono out/cs/bin/Main.exe"
-		},
-		// eval
-		{
-			name: "Eval",
-			id: "eval",
-			compile: "" // eval is handled separately
-		},
-		// hl
-		{
-			name: "HashLink",
-			id: "hl",
-			init: "./setup-hl-stable.sh",
-			compile: "-hl out/hl.hl",
-			run: "hl out/hl.hl"
-		},
-		{
-			name: "HashLink/C",
-			id: "hlc",
-			init: "./setup-hl-stable.sh",
-			compile: "-hl out/hlc/hlc.c",
-			postCompile: "gcc -O3 -std=c11 -o out/hlc/hlc out/hlc/hlc.c -I out/hlc -lhl",
-			run: "out/hlc/hlc"
-		},
-		{
-			name: "HashLink",
-			id: "hlGCImmix",
-			init: "./setup-hl-immix.sh",
-			compile: "-hl out/hl.hl",
-			run: "hl out/hl.hl"
-		},
-		{
-			name: "HashLink/C",
-			id: "hlcGCImmix",
-			init: "./setup-hl-immix.sh",
-			compile: "-hl out/hlc/hlc.c",
-			postCompile: "gcc -O3 -std=c11 -o out/hlc/hlc out/hlc/hlc.c -I out/hlc -lhl",
-			run: "out/hlc/hlc"
-		},
-		// java
-		{
-			name: "Java",
-			id: "java",
-			compile: "-java out/java",
-			run: "java -jar out/java/Main.jar"
-		},
-		{
-			name: "JVM",
-			id: "jvm",
-			compile: "-java out/jvm",
-			defines: ["jvm" => ""],
-			run: "java -jar out/jvm/Main.jar"
-		},
-		// js
-		{
-			name: "NodeJS",
-			id: "js",
-			compile: "-js out/js.js",
-			installLibraries: ["hxnodejs" => "haxelib:hxnodejs"],
-			useLibraries: ["hxnodejs"],
-			run: "node out/js.js"
-		},
-		{
-			name: "NodeJS (ES6)",
-			id: "js-es6",
-			compile: "-js out/js-es6.js",
-			installLibraries: ["hxnodejs" => "haxelib:hxnodejs"],
-			useLibraries: ["hxnodejs"],
-			defines: ["js-es" => "6"],
-			run: "node out/js-es6.js"
-		},
-		// lua
-		{
-			name: "Lua",
-			id: "lua",
-			compile: "-lua out/lua.lua",
-			run: "lua out/lua.lua"
-		},
-		// neko
-		{
-			name: "Neko",
-			id: "neko",
-			compile: "-neko out/neko.n",
-			run: "neko out/neko.n"
-		},
-		// php
-		{
-			name: "PHP",
-			id: "php",
-			compile: "-php out/php",
-			defines: ["php7" => ""],
-			run: "php out/php/index.php"
-		},
-		// python
-		{
-			name: "Python",
-			id: "python",
-			compile: "-python out/python.py",
-			run: "python3 out/python.py"
-		}
-	];
+	static function createTargets():Array<Target>
+		return [
+			// cpp
+			{
+				name: "C++",
+				id: "cpp",
+				compile: "-cpp out/cpp",
+				run: "out/cpp/Main",
+				installLibraries: ["hxcpp" => "gh://github.com/HaxeFoundation/hxcpp"]
+			},
+			{
+				name: "C++ (GC Gen)",
+				id: "cppGCGen",
+				compile: "-cpp out/cppGCGen",
+				run: "out/cppGCGen/Main",
+				installLibraries: ["hxcpp" => "gh://github.com/HaxeFoundation/hxcpp"],
+				defines: ["HXCPP_GC_GENERATIONAL" => ""]
+			},
+			// cs
+			{
+				name: "C#",
+				id: "cs",
+				compile: "-cs out/cs",
+				run: "mono out/cs/bin/Main.exe"
+			},
+			// eval
+			{
+				name: "Eval",
+				id: "eval",
+				compile: "" // eval is handled separately
+			},
+			// hl
+			{
+				name: "HashLink",
+				id: "hl",
+				init: "./setup-hl-stable.sh",
+				compile: "-hl out/hl.hl",
+				run: "hl out/hl.hl",
+				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
+			},
+			{
+				name: "HashLink/C",
+				id: "hlc",
+				init: "./setup-hl-stable.sh",
+				compile: "-hl out/hlc/hlc.c",
+				postCompile: "gcc -O3 -std=c11 -o out/hlc/hlc out/hlc/hlc.c -I out/hlc -lhl",
+				run: "out/hlc/hlc",
+				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
+			},
+			{
+				name: "HashLink",
+				id: "hlGCImmix",
+				init: "./setup-hl-immix.sh",
+				compile: "-hl out/hl.hl",
+				run: "hl out/hl.hl",
+				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
+			},
+			{
+				name: "HashLink/C",
+				id: "hlcGCImmix",
+				init: "./setup-hl-immix.sh",
+				compile: "-hl out/hlc/hlc.c",
+				postCompile: "gcc -O3 -std=c11 -o out/hlc/hlc out/hlc/hlc.c -I out/hlc -lhl",
+				run: "out/hlc/hlc",
+				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
+			},
+			// java
+			{
+				name: "Java",
+				id: "java",
+				compile: "-java out/java",
+				run: "java -jar out/java/Main.jar"
+			},
+			{
+				name: "JVM",
+				id: "jvm",
+				compile: "-java out/jvm",
+				defines: ["jvm" => ""],
+				run: "java -jar out/jvm/Main.jar"
+			},
+			// js
+			{
+				name: "NodeJS",
+				id: "js",
+				compile: "-js out/js.js",
+				installLibraries: ["hxnodejs" => "haxelib:/hxnodejs#10.0.0"],
+				useLibraries: ["hxnodejs"],
+				run: "node out/js.js"
+			},
+			{
+				name: "NodeJS (ES6)",
+				id: "js-es6",
+				compile: "-js out/js-es6.js",
+				installLibraries: ["hxnodejs" => "haxelib:/hxnodejs#10.0.0"],
+				useLibraries: ["hxnodejs"],
+				defines: ["js-es" => "6"],
+				run: "node out/js-es6.js"
+			},
+			// lua
+			{
+				name: "Lua",
+				id: "lua",
+				compile: "-lua out/lua.lua",
+				run: "lua out/lua.lua"
+			},
+			// neko
+			{
+				name: "Neko",
+				id: "neko",
+				compile: "-neko out/neko.n",
+				run: "neko out/neko.n"
+			},
+			// php
+			{
+				name: "PHP",
+				id: "php",
+				compile: "-php out/php",
+				defines: ["php7" => ""],
+				run: "php out/php/index.php"
+			},
+			// python
+			{
+				name: "Python",
+				id: "python",
+				compile: "-python out/python.py",
+				run: "python3 out/python.py"
+			}
+		];
 
 	public static var VERSIONS:Array<Version> = {
+		var haxe3targets:Array<Target> = [
+			for (target in createTargets()) {
+				switch (target.id) {
+					case "jvm" | "hl" | "hlc" | "hlGCImmix" | "hlcGCImmix":
+						continue;
+					case "cs":
+						target.installLibraries = ["hxcs" => "haxelib:/hxcs#3.4.0"];
+					case "java":
+						target.installLibraries = ["hxjava" => "haxelib:/hxjava#3.2.0"];
+					case _:
+				}
+				target;
+			}
+		].concat([
+				{
+					name: "HashLink",
+					id: "hlGCImmix",
+					init: "./setup-hl-1.1.sh",
+					compile: "-hl out/hl.hl",
+					run: "hl out/hl.hl",
+					installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
+				},
+				{
+					name: "HashLink/C",
+					id: "hlcGCImmix",
+					init: "./setup-hl-1.1.sh",
+					compile: "-hl out/hlc/hlc.c",
+					postCompile: "gcc -O3 -std=c11 -o out/hlc/hlc out/hlc/hlc.c -I out/hlc -lhl",
+					run: "out/hlc/hlc",
+					installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
+				}
+			]);
+		var haxe4targets:Array<Target> = [
+			for (target in createTargets()) {
+				switch (target.id) {
+					case "cs":
+						target.installLibraries = ["hxcs" => "haxelib:/hxcs#4.0.0-alpha"];
+					case "java":
+						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
+					case _:
+				}
+				target;
+			}
+		];
 		var vers:Array<Version> = [
 			{
 				name: "Haxe 3",
@@ -147,31 +198,7 @@ class Benchmark {
 				lixId: "3.4.7",
 				env: [],
 				jsonOutput: "haxe3.json",
-				targets: [
-					for (target in TARGETS)
-						switch (target.id) {
-							case "jvm" | "hl" | "hlc" | "hlGCImmix" | "hlcGCImmix":
-								continue;
-							case _:
-								target;
-						}
-				].concat([
-					{
-						name: "HashLink",
-						id: "hlGCImmix",
-						init: "./setup-hl-1.1.sh",
-						compile: "-hl out/hl.hl",
-						run: "hl out/hl.hl"
-					},
-					{
-						name: "HashLink/C",
-						id: "hlcGCImmix",
-						init: "./setup-hl-1.1.sh",
-						compile: "-hl out/hlc/hlc.c",
-						postCompile: "gcc -O3 -std=c11 -o out/hlc/hlc out/hlc/hlc.c -I out/hlc -lhl",
-						run: "out/hlc/hlc"
-					}
-				])
+				targets: haxe3targets
 			},
 			{
 				name: "Haxe 4",
@@ -179,7 +206,7 @@ class Benchmark {
 				lixId: "4.0.5",
 				env: [],
 				jsonOutput: "haxe4.json",
-				targets: TARGETS.copy()
+				targets: haxe4targets
 			},
 			{
 				name: "Haxe nightly",
@@ -187,14 +214,24 @@ class Benchmark {
 				lixId: "nightly",
 				env: [],
 				jsonOutput: "haxe-nightly.json",
-				targets: TARGETS.copy()
+				targets: haxe4targets
 			}
 		];
 		vers;
 	};
 
+	static var logPrefix:Array<String> = [];
+
+	static function log(msg:String):Void {
+		if (logPrefix.length > 0) {
+			Sys.println('[${logPrefix.join(",")}] $msg');
+		} else {
+			Sys.println(msg);
+		}
+	}
+
 	static function scmd(cmd:String, ?args:Array<String>):Int {
-		Sys.println('  * $cmd $args');
+		log('  * $cmd $args');
 		return Sys.command(cmd, args);
 	}
 
@@ -234,7 +271,7 @@ class Benchmark {
 	}
 
 	static function compile(version:Version, versionParams:CompileParams, target:Target, compileParams:CompileParams, runParams:RunParams):Bool {
-		Sys.println('compiling ${target.name} ...');
+		log('compiling ${target.name} ...');
 		var haxeArgs = [];
 		installLibraries(compileParams.installLibraries);
 		for (lib in arrConcat([
@@ -279,7 +316,7 @@ class Benchmark {
 	static function run(target:Target, compileParams:CompileParams, runParams:RunParams):Bool {
 		if (target.run == null)
 			return true;
-		Sys.println('running ${target.name} ...');
+		log('running ${target.name} ...');
 		var runArgs = target.run.replace("Main", compileParams.main.split(".").pop()).split(" ");
 		if (runParams.timeout != null) {
 			runArgs.unshift('${runParams.timeout}');
@@ -299,8 +336,9 @@ class Benchmark {
 			FileSystem.createDirectory("benchmark-run");
 		Sys.setCwd("benchmark-run");
 		for (version in VERSIONS) {
+			logPrefix = [version.id];
 			if (VERSION_FILTER != null && !VERSION_FILTER.contains(version.id)) {
-				Sys.println('skipping ${version.name} (BENCHMARK_VERSIONS)');
+				log('skipping ${version.name} (BENCHMARK_VERSIONS)');
 				continue;
 			}
 			var versionParams = versionSetup(version.id);
@@ -309,18 +347,18 @@ class Benchmark {
 			var targets = [
 				for (target in version.targets) {
 					if (TARGET_FILTER != null && !TARGET_FILTER.contains(target.id)) {
-						Sys.println('skipping ${target.name} (BENCHMARK_TARGETS)');
+						log('skipping ${target.name} (BENCHMARK_TARGETS)');
 						continue;
 					}
 					target;
 				}
 			];
 			if (targets.length == 0) {
-				Sys.println('skipping ${version.name} (no targets)');
+				log('skipping ${version.name} (no targets)');
 				continue;
 			}
 			// version prepare
-			Sys.println('preparing ${version.name} ...');
+			log('preparing ${version.name} ...');
 			scmd("lix", ["scope", "create"]);
 			scmd("lix", ["install", "haxe", version.lixId]);
 			scmd("lix", ["use", "haxe", version.lixId]);
@@ -331,17 +369,18 @@ class Benchmark {
 				proc.close();
 				version;
 			};
-			Sys.println('resolved version: $resolvedVersion');
+			log('resolved version: $resolvedVersion');
 			installLibraries(mapConcat([version.installLibraries, versionParams.installLibraries]));
 			var versionOutputs = [];
 			// target setup, compile, and run
 			for (target in targets) {
+				logPrefix[1] = target.id;
 				var compileParams = compileParams(version.id, target.id);
 				if (compileParams == SKIP)
 					continue;
 				var runParams = runParams(version.id, target.id);
 				if (target.init != null) {
-					Sys.println('initialising ${target.name} ...');
+					log('initialising ${target.name} ...');
 					scmd(target.init);
 				}
 				installLibraries(mapConcat([target.installLibraries, compileParams.installLibraries]));
@@ -351,12 +390,12 @@ class Benchmark {
 				var runSuccess = true;
 				if (target.id == "eval") {
 					runTime = measure(() -> runSuccess = compile(version, versionParams, target, compileParams, runParams));
-					Sys.println('run time: $runTime s');
+					log('run time: $runTime s');
 				} else {
 					compileTime = measure(() -> compileSuccess = compile(version, versionParams, target, compileParams, runParams));
-					Sys.println('compile time: $compileTime s (${compileSuccess ? "success" : "FAILED"})');
+					log('compile time: $compileTime s (${compileSuccess ? "success" : "FAILED"})');
 					runTime = measure(() -> runSuccess = run(target, compileParams, runParams));
-					Sys.println('run time: $runTime s (${runSuccess ? "success" : "FAILED"})');
+					log('run time: $runTime s (${runSuccess ? "success" : "FAILED"})');
 				}
 				// TODO: record failures
 				if (compileSuccess && runSuccess)
@@ -366,6 +405,7 @@ class Benchmark {
 						time: runTime
 					});
 			}
+			logPrefix.splice(1, logPrefix.length);
 			// cleanup
 			scmd("lix", ["scope", "delete"]);
 			scmd("rm", ["-rf", "haxe_libraries"]);
