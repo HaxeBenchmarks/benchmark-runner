@@ -192,7 +192,7 @@ class Benchmark {
 						target.installLibraries = ["hxcs" => "haxelib:/hxcs#4.0.0-alpha"];
 					case "java":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
-					case "cppia" | "cpp" | "cppGCGen"::
+					case "cppia" | "cpp" | "cppGCGen":
 						target.init = "./setup-hxcpp-haxe4.sh";
 					case _:
 				}
@@ -206,7 +206,7 @@ class Benchmark {
 						target.installLibraries = ["hxcs" => "haxelib:/hxcs#4.0.0-alpha"];
 					case "java":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
-					case "cppia" | "cpp" | "cppGCGen"::
+					case "cppia" | "cpp" | "cppGCGen":
 						target.init = "./setup-hxcpp-haxeNightly.sh";
 					case _:
 				}
