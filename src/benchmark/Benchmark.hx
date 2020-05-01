@@ -202,15 +202,20 @@ class Benchmark {
 			}
 		];
 		var haxeNightlytargets:Array<Target> = [
-			for (target in haxe4targets) {
+			for (target in createTargets()) {
 				switch (target.id) {
+					case "cs":
+						target.installLibraries = ["hxcs" => "haxelib:/hxcs#4.0.0-alpha"];
+					case "java":
+						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
 					case "cppia":
 						target.init = "./setup-cppia-haxeNightly.sh";
 					case _:
 				}
 				target;
 			}
-		];		var vers:Array<Version> = [
+		];		
+		var vers:Array<Version> = [
 			{
 				name: "Haxe 3",
 				id: "haxe3",
