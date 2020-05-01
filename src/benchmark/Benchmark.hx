@@ -35,6 +35,12 @@ class Benchmark {
 				installLibraries: ["hxcpp" => "gh://github.com/HaxeFoundation/hxcpp"],
 				defines: ["HXCPP_GC_GENERATIONAL" => ""]
 			},
+			{
+				name: "Cppia",
+				id: "cppia",
+				compile: "-cppia out/cppia.cppia",
+				run: "Cppia out/cppia.cppia"
+			},
 			// cs
 			{
 				name: "C#",
@@ -156,6 +162,8 @@ class Benchmark {
 						target.installLibraries = ["hxcs" => "haxelib:/hxcs#3.4.0"];
 					case "java":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#3.2.0"];
+					case "cppia":
+						target.init = "./setup-cppia-haxe3.sh";
 					case _:
 				}
 				target;
@@ -186,12 +194,23 @@ class Benchmark {
 						target.installLibraries = ["hxcs" => "haxelib:/hxcs#4.0.0-alpha"];
 					case "java":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
+					case "cppia":
+						target.init = "./setup-cppia-haxe4.sh";
 					case _:
 				}
 				target;
 			}
 		];
-		var vers:Array<Version> = [
+		var haxeNightlytargets:Array<Target> = [
+			for (target in haxe4targets) {
+				switch (target.id) {
+					case "cppia":
+						target.init = "./setup-cppia-haxeNightly.sh";
+					case _:
+				}
+				target;
+			}
+		];		var vers:Array<Version> = [
 			{
 				name: "Haxe 3",
 				id: "haxe3",
@@ -214,7 +233,7 @@ class Benchmark {
 				lixId: "nightly",
 				env: [],
 				jsonOutput: "haxe-nightly.json",
-				targets: haxe4targets
+				targets: haxeNightlytargets
 			}
 		];
 		vers;
@@ -321,7 +340,7 @@ class Benchmark {
 		if (runParams.timeout != null) {
 			runArgs.unshift('${runParams.timeout}');
 			runArgs.unshift('${runParams.timeout}');
-			runArgs.unshift('-vk');
+			runArgs.unshift('-k');
 			runArgs.unshift("timeout");
 		}
 		if (runParams.args != null)
