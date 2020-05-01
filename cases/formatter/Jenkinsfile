@@ -19,6 +19,7 @@ pipeline {
                 echo 'run benchmark'
                 sh '''
                     cd cases/formatter
+                    ln ../../setup* .
                     lix download
                     haxe run.hxml
                 '''
