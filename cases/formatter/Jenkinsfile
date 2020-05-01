@@ -19,7 +19,9 @@ pipeline {
                 echo 'run benchmark'
                 sh '''
                     cd cases/formatter
-                    ln ../../setup* .
+                    mkdir -p data
+                    ln -sfn $FORMATTER_INPUT_DATA_BASE/* data/
+                    ln -sfn ../../setup* .
                     lix download
                     haxe run.hxml
                 '''

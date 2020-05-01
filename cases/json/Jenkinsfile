@@ -20,7 +20,7 @@ pipeline {
                 echo 'run benchmark'
                 sh '''
                     cd cases/json
-                    ln ../../setup* .
+                    ln -sfn ../../setup* .
                     lix download
                     haxe run.hxml
                 '''
