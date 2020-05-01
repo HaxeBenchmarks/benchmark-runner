@@ -56,7 +56,7 @@ class Benchmark {
 			{
 				name: "HashLink",
 				id: "hl",
-				init: "./setup-hl-stable.sh",
+				init: "./setup-hl-1.11.sh",
 				compile: "-hl out/hl.hl",
 				run: "hl out/hl.hl",
 				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
@@ -64,14 +64,14 @@ class Benchmark {
 			{
 				name: "HashLink/C",
 				id: "hlc",
-				init: "./setup-hl-stable.sh",
+				init: "./setup-hl-1.11.sh",
 				compile: "-hl out/hlc/hlc.c",
 				postCompile: "gcc -O3 -std=c11 -o out/hlc/hlc out/hlc/hlc.c -I out/hlc -lhl",
 				run: "out/hlc/hlc",
 				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 			},
 			{
-				name: "HashLink",
+				name: "HashLink Immix",
 				id: "hlGCImmix",
 				init: "./setup-hl-immix.sh",
 				compile: "-hl out/hl.hl",
@@ -79,7 +79,7 @@ class Benchmark {
 				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 			},
 			{
-				name: "HashLink/C",
+				name: "HashLink/C Immix",
 				id: "hlcGCImmix",
 				init: "./setup-hl-immix.sh",
 				compile: "-hl out/hlc/hlc.c",
