@@ -1,5 +1,5 @@
-import benchmark.Benchmark;
 import sys.FileSystem;
+import benchmark.Benchmark;
 
 // TODO: no IO variant
 class BMFormatter {
@@ -13,9 +13,11 @@ class BMFormatter {
 		var args = [];
 		for (source in dataSources) {
 			args.push("-s");
-			args.push('data/${source.dir}/${source.sub}');
-			if (!FileSystem.exists('data/${source.dir}'))
-				Sys.command('git clone ${source.url} --depth 1 data/${source.dir}');
+			args.push('../data/${source.dir}/${source.sub}');
+			// don't check out fresh sources automatically
+			// should be a manual, because new sources will have an effect on benchmark runtime
+			// 	if (!FileSystem.exists('data/${source.dir}'))
+			// 		Sys.command('git clone ${source.url} --depth 1 data/${source.dir}');
 		}
 		Benchmark.benchmarkAll(
 			// version setup
