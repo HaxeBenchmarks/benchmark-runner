@@ -357,6 +357,7 @@ class Benchmark {
 		if (!FileSystem.exists("benchmark-run"))
 			FileSystem.createDirectory("benchmark-run");
 		Sys.setCwd("benchmark-run");
+		var runDate = Date.now();
 		for (version in VERSIONS) {
 			logPrefix = [version.id];
 			if (VERSION_FILTER != null && !VERSION_FILTER.contains(version.id)) {
@@ -435,7 +436,7 @@ class Benchmark {
 			if (versionOutputs.length > 0) {
 				var archive:Array<Dynamic> = FileSystem.exists(version.jsonOutput) ? Json.parse(File.getContent(version.jsonOutput)) : [];
 				archive.push({
-					date: Date.now().toString(),
+					date: runDate.toString(),
 					haxeVersion: resolvedVersion,
 					targets: versionOutputs
 				});
