@@ -250,6 +250,15 @@ class Benchmark {
 			haxeArgs.push("-D");
 			haxeArgs.push(val == "" ? define : '$define=$val');
 		}
+		for (cp in arrConcat([
+			version.classPaths,
+			versionParams.classPaths,
+			target.classPaths,
+			compileParams.classPaths
+		])) {
+			haxeArgs.push("-cp");
+			haxeArgs.push(cp);
+		}
 		if (target.id == "eval") {
 			haxeArgs.push("--run");
 			haxeArgs.push(compileParams.main);
@@ -286,6 +295,9 @@ class Benchmark {
 
 	public static function benchmarkAll(versionSetup:(haxe:String) -> CompileParams, compileParams:(haxe:String, target:String) -> CompileParams,
 			runParams:(haxe:String, target:String) -> RunParams):Void {
+		if (!FileSystem.exists("benchmark-run"))
+			FileSystem.createDirectory("benchmark-run");
+		Sys.setCwd("benchmark-run");
 		for (version in VERSIONS) {
 			if (VERSION_FILTER != null && !VERSION_FILTER.contains(version.id)) {
 				Sys.println('skipping ${version.name} (BENCHMARK_VERSIONS)');
@@ -332,6 +344,7 @@ class Benchmark {
 					Sys.println('initialising ${target.name} ...');
 					scmd(target.init);
 				}
+				installLibraries(mapConcat([target.installLibraries, compileParams.installLibraries]));
 				var compileTime = 0.0;
 				var runTime = 0.0;
 				var compileSuccess = true;

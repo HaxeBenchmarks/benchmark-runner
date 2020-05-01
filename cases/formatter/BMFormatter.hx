@@ -9,7 +9,6 @@ class BMFormatter {
 			{dir: "openfl", url: "https://github.com/openfl/openfl.git", sub: "src"},
 			{dir: "lime", url: "https://github.com/openfl/lime.git", sub: "src"}
 		];
-		var cwd = Sys.getCwd();
 		FileSystem.createDirectory("data");
 		var args = [];
 		for (source in dataSources) {
@@ -63,13 +62,13 @@ class BMFormatter {
 					"formatter",
 					"benchmark-helper"
 				],
-				classPaths: ["src"],
 				main: "formatter.Cli"
 			},
 			// target run
 			(haxe, target) -> {
+				var cwd = Sys.getCwd();
 				for (source in dataSources) {
-					Sys.setCwd('data/${source.dir}');
+					Sys.setCwd('../data/${source.dir}');
 					Sys.command('git checkout -- .');
 					Sys.setCwd(cwd);
 				}
