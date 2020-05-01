@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        disableConcurrentBuilds()
+    }
+    triggers {
+        cron 'H/6 * * * *'
+    }
+
+    stages {
+        stage('checkout') {
+            steps {
+                echo 'checkout benchmark runner'
+                sh '''
+                    git clone --depth 1 https://github.com/HaxeBenchmarks/benchmark-runner.git .
+                '''
+            }
+        }
+        stage('run benchmark') {
+            steps {
+                echo 'run benchmark'
+                sh '''
+                    cd cases/json
+                    lix download
+                    haxe run.hxml
+                '''
+            }
+        }
+    }
+}
