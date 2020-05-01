@@ -5,7 +5,7 @@ pipeline {
         disableConcurrentBuilds()
     }
     triggers {
-        cron 'H/6 * * * *'
+        cron 'H H/6 * * *'
     }
 
     stages {
