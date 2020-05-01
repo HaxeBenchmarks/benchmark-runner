@@ -39,7 +39,7 @@ class Benchmark {
 				name: "Cppia",
 				id: "cppia",
 				compile: "-cppia out/cppia.cppia",
-				run: "Cppia out/cppia.cppia"
+				run: "haxelib run hxcpp out/cppia.cppia"
 			},
 			// cs
 			{
@@ -163,7 +163,7 @@ class Benchmark {
 					case "java":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#3.2.0"];
 					case "cppia":
-						target.init = "./setup-cppia-haxe3.sh";
+						target.init = "./setup-hxcpp-haxe3.sh";
 					case _:
 				}
 				target;
@@ -195,7 +195,7 @@ class Benchmark {
 					case "java":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
 					case "cppia":
-						target.init = "./setup-cppia-haxe4.sh";
+						target.init = "./setup-hxcpp-haxe4.sh";
 					case _:
 				}
 				target;
@@ -209,7 +209,7 @@ class Benchmark {
 					case "java":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
 					case "cppia":
-						target.init = "./setup-cppia-haxeNightly.sh";
+						target.init = "./setup-hxcpp-haxeNightly.sh";
 					case _:
 				}
 				target;
