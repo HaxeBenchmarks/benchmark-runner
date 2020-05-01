@@ -315,7 +315,7 @@ class Benchmark {
 			var resolvedVersion = {
 				var proc = new sys.io.Process("haxe", ["-version"]);
 				proc.exitCode();
-				var version = (proc.stdout.readLine() + proc.stderr.readLine()).trim();
+				var version = (proc.stdout.readAll().toString() + proc.stderr.readAll().toString()).trim();
 				proc.close();
 				version;
 			};
