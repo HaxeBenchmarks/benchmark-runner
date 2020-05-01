@@ -3,11 +3,11 @@ pipeline {
     options {
         timeout(time: 1, unit: 'HOURS')
         disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10')) }
     }
     triggers {
         cron 'H H/6 * * *'
     }
-
     stages {
         stage('checkout') {
             steps {
@@ -23,6 +23,12 @@ pipeline {
                     lix download
                     haxe run.hxml
                 '''
+            }
+        }
+        stage('archiving artifacts') {
+            steps {
+                echo 'archiving artifacts'
+                archiveArtifacts allowEmptyArchive: true, artifacts: 'cases/formatter/benchmark-run/*.json', onlyIfSuccessful: true
             }
         }
     }
