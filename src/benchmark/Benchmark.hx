@@ -314,8 +314,8 @@ class Benchmark {
 			scmd("lix", ["use", "haxe", version.lixId]);
 			var resolvedVersion = {
 				var proc = new sys.io.Process("haxe", ["-version"]);
-				var version = proc.stdout.readLine();
 				proc.exitCode();
+				var version = (proc.stdout.readLine() + proc.stderr.readLine()).trim();
 				proc.close();
 				version;
 			};
