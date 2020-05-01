@@ -1,5 +1,6 @@
 #!/bin/bash
 
-readonly CPPIA_BASE=$TOOLING_BASE/hxcpp/hxcppHaxeNightly
+readonly HXCPP_BASE=$TOOLING_BASE/hxcpp/hxcppHaxeNightly
 
-lix dev hxcpp $CPPIA_BASE
+lix dev hxcpp $HXCPP_BASE
+haelib dev hxcpp $HXCPP_BASE
