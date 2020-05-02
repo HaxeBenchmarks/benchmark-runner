@@ -21,7 +21,7 @@ pipeline {
                 sh '''
                     cd cases/json
                     mkdir -p benchmark-run
-                    ln -sfn $BENCHMARK_RESULTS_BASE/json/* benchmark-run/
+                    ln -sfn $BENCHMARK_RESULTS_BASE/json/*.json benchmark-run/
                     lix download
                     haxe run.hxml
                 '''
@@ -30,7 +30,7 @@ pipeline {
         stage('archiving artifacts') {
             steps {
                 echo 'archiving artifacts'
-                archiveArtifacts allowEmptyArchive: true, artifacts: 'cases/json/benchmark-run/*.json', onlyIfSuccessful: true
+                archiveArtifacts allowEmptyArchive: true, artifacts: '$BENCHMARK_RESULTS_BASE/json/*.json', onlyIfSuccessful: true
             }
         }
     }

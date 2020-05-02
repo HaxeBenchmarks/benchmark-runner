@@ -22,7 +22,7 @@ pipeline {
                     mkdir -p data
                     ln -sfn $FORMATTER_INPUT_DATA_BASE/* data/
                     mkdir -p benchmark-run
-                    ln -sfn $BENCHMARK_RESULTS_BASE/formatter/* benchmark-run/
+                    ln -sfn $BENCHMARK_RESULTS_BASE/formatter/*.json benchmark-run/
                     lix download
                     haxe run.hxml
                 '''
@@ -31,7 +31,7 @@ pipeline {
         stage('archiving artifacts') {
             steps {
                 echo 'archiving artifacts'
-                archiveArtifacts allowEmptyArchive: true, artifacts: 'cases/formatter/benchmark-run/*.json', onlyIfSuccessful: true
+                archiveArtifacts allowEmptyArchive: true, artifacts: '$BENCHMARK_RESULTS_BASE/formatter/*.json', onlyIfSuccessful: true
             }
         }
     }
