@@ -12,7 +12,7 @@ class BMJson {
 			},
 			// target run
 			(haxe, target) -> {
-				timeout: 5 * 60
+				timeout: 60
 			}
 		);
 	}
