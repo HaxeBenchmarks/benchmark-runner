@@ -20,8 +20,8 @@ pipeline {
                 echo 'run benchmark'
                 sh '''
                     cd cases/json
-                    ln -sfn ../../setup* .
                     mkdir -p benchmark-run
+                    ln -sfn ../../setup* benchmark-run/
                     ln -sfn $BENCHMARK_RESULTS_BASE/json/* benchmark-run/
                     lix download
                     haxe run.hxml
