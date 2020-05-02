@@ -22,6 +22,8 @@ pipeline {
                     mkdir -p data
                     ln -sfn $FORMATTER_INPUT_DATA_BASE/* data/
                     ln -sfn ../../setup* .
+                    mkdir -p benchmark-run
+                    ln -sfn $BENCHMARK_RESULTS_BASE/formatter/* benchmark-run/
                     lix download
                     haxe run.hxml
                 '''
