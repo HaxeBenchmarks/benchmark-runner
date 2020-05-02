@@ -157,13 +157,13 @@ class Benchmark {
 		var haxe3targets:Array<Target> = [
 			for (target in createTargets()) {
 				switch (target.id) {
-					case "jvm" | "hl" | "hlc" | "hlGCImmix" | "hlcGCImmix":
+					case "cppGCGen" | "jvm" | "hl" | "hlc" | "hlGCImmix" | "hlcGCImmix":
 						continue;
 					case "cs":
 						target.installLibraries = ["hxcs" => "haxelib:/hxcs#3.4.0"];
 					case "java":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#3.2.0"];
-					case "cppia" | "cpp" | "cppGCGen":
+					case "cppia" | "cpp":
 						target.init = '$BENCHMARK_BASE/setup-hxcpp-haxe3.sh';
 					case _:
 				}
