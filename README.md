@@ -4,14 +4,14 @@ This is a WIP benchmark runner for [`benchs.haxe.org`](https://benchs.haxe.org/)
 
 ## Running a benchmark case - all versions and all targets
 
-- `cd cases/<tastcase>`
+- `cd cases/<testcase>`
 - `npx haxe run.hxml`
 
 You will find test results in console output and in three JSON files inside subfolder `benchmark-run`.
 
 ## Running a benchmark case with one Haxe version
 
-- `cd cases/<tastcase>`
+- `cd cases/<testcase>`
 - `export BENCHMARK_VERSIONS=haxe-nightly` or `set BENCHMARK_VERSIONS=haxe-nightly`
 - `npx haxe run.hxml`
 
@@ -23,7 +23,7 @@ Available versions are:
 
 ## Running a benchmark case for specific targets
 
-- `cd cases/<tastcase>`
+- `cd cases/<testcase>`
 - `export BENCHMARK_TARGETS=java,jvm` or `set BENCHMARK_TARGETS=java,jvm`
 - `npx haxe run.hxml`
 
