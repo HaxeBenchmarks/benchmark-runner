@@ -12,4 +12,4 @@
 * testcase reads hxformat-schema.json and Json.parse and Json.stringifys it 500 times, it also places 500 copies inside an array stringify and parses it once
 
 * results update after every build (page doesn't automatically reload)
-* sources available here: [https://github.com/HaxeBenchmarks/benchmark-runner](https://github.com/HaxeBenchmarks/benchmark-runner)
+* sources available here: [HaxeBenchmarks/benchmark-runner](https://github.com/HaxeBenchmarks/benchmark-runner)
