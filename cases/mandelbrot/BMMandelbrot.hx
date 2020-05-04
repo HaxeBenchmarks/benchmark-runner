@@ -12,7 +12,7 @@ class BMMandelbrot {
 			},
 			// target run
 			(haxe, target) -> {
-				timeout: 60
+				timeout: 5 * 60
 			}
 		);
 	}

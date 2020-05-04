@@ -13,7 +13,7 @@ class BMMandelbrotAnonObjects {
 			},
 			// target run
 			(haxe, target) -> {
-				timeout: 60
+				timeout: 3 * 60
 			}
 		);
 	}
