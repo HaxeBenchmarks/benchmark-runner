@@ -27,11 +27,5 @@ pipeline {
                 '''
             }
         }
-        stage('archiving artifacts') {
-            steps {
-                echo 'archiving artifacts'
-                archiveArtifacts allowEmptyArchive: true, artifacts: '$BENCHMARK_RESULTS_BASE/json/*.json', onlyIfSuccessful: true
-            }
-        }
     }
 }
