@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+    }
+    triggers {
+        cron 'H H/6 * * *'
+    }
+
+    stages {
+        stage('checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', depth: 1, noTags: false, reference: '', shallow: true]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/HaxeBenchmarks/benchmark-runner.git']]])
+            }
+        }
+        stage('run benchmark') {
+            steps {
+                echo 'run benchmark'
+                sh '''
+                    cd cases/alloc
+                    mkdir -p benchmark-run
+                    ln -sfn $BENCHMARK_RESULTS_BASE/alloc/*.json benchmark-run/
+                    lix download
+                    haxe run.hxml
+                '''
+            }
+        }
+    }
+}
