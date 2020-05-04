@@ -19,6 +19,7 @@ class Benchmark {
 
 	// base relative to cases/*/benchmark-run
 	static final BENCHMARK_BASE = "../../..";
+	static final SCRIPTS_BASE = '$BENCHMARK_BASE/scripts';
 
 	static function createTargets():Array<Target>
 		return [
@@ -59,35 +60,31 @@ class Benchmark {
 			{
 				name: "HashLink",
 				id: "hl",
-				init: '$BENCHMARK_BASE/setup-hl-1.11.sh',
 				compile: "-hl out/hl.hl",
-				run: "hl out/hl.hl",
+				run: '$SCRIPTS_BASE/hl-1.11/run-hl.sh out/hl.hl',
 				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 			},
 			{
 				name: "HashLink/C",
 				id: "hlc",
-				init: '$BENCHMARK_BASE/setup-hl-1.11.sh',
 				compile: "-hl out/hlc/hlc.c",
-				postCompile: "gcc -O3 -std=c11 -o out/hlc/hlc out/hlc/hlc.c -I out/hlc -lhl",
-				run: "out/hlc/hlc",
+				postCompile: '$SCRIPTS_BASE/hl-1.11/compile.sh out/hlc',
+				run: '$SCRIPTS_BASE/hl-1.11/run-hlc.sh out/hlc/hlc',
 				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 			},
 			{
 				name: "HashLink Immix",
 				id: "hlGCImmix",
-				init: '$BENCHMARK_BASE/setup-hl-immix.sh',
 				compile: "-hl out/hl.hl",
-				run: "hl out/hl.hl",
+				run: '$SCRIPTS_BASE/hl-immix/run-hl.sh out/hl.hl',
 				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 			},
 			{
 				name: "HashLink/C Immix",
 				id: "hlcGCImmix",
-				init: '$BENCHMARK_BASE/setup-hl-immix.sh',
 				compile: "-hl out/hlc/hlc.c",
-				postCompile: "gcc -O3 -std=c11 -o out/hlc/hlc out/hlc/hlc.c -I out/hlc -lhl",
-				run: "out/hlc/hlc",
+				postCompile: '$SCRIPTS_BASE/hl-immix/compile.sh out/hlc',
+				run: '$SCRIPTS_BASE/hl-immix/run-hlc.sh out/hlc/hlc',
 				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 			},
 			// java
@@ -164,7 +161,7 @@ class Benchmark {
 					case "java":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#3.2.0"];
 					case "cppia" | "cpp":
-						target.init = '$BENCHMARK_BASE/setup-hxcpp-haxe3.sh';
+						target.init = '$SCRIPTS_BASE/hxcpp/setup-haxe3.sh';
 					case _:
 				}
 				target;
@@ -173,18 +170,16 @@ class Benchmark {
 				{
 					name: "HashLink",
 					id: "hl",
-					init: '$BENCHMARK_BASE/setup-hl-1.1.sh',
 					compile: "-hl out/hl.hl",
-					run: "hl out/hl.hl",
+					run: '$SCRIPTS_BASE/hl-1.1/run-hl.sh out/hl.hl',
 					installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 				},
 				{
 					name: "HashLink/C",
 					id: "hlc",
-					init: '$BENCHMARK_BASE/setup-hl-1.1.sh',
 					compile: "-hl out/hlc/hlc.c",
-					postCompile: "gcc -O3 -std=c11 -o out/hlc/hlc out/hlc/hlc.c -I out/hlc -lhl",
-					run: "out/hlc/hlc",
+					postCompile: '$SCRIPTS_BASE/hl-1.1/compile.sh out/hlc',
+					run: '$SCRIPTS_BASE/hl-1.1/run-hlc.sh out/hlc/hlc',
 					installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 				}
 			]);
@@ -196,7 +191,7 @@ class Benchmark {
 					case "java" | "jvm":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
 					case "cppia" | "cpp" | "cppGCGen":
-						target.init = '$BENCHMARK_BASE/setup-hxcpp-haxe4.sh';
+						target.init = '$SCRIPTS_BASE/hxcpp/setup-haxe4.sh';
 					case _:
 				}
 				target;
@@ -210,7 +205,7 @@ class Benchmark {
 					case "java" | "jvm":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
 					case "cppia" | "cpp" | "cppGCGen":
-						target.init = '$BENCHMARK_BASE/setup-hxcpp-haxeNightly.sh';
+						target.init = '$SCRIPTS_BASE/hxcpp/setup-haxeNightly.sh';
 					case _:
 				}
 				target;

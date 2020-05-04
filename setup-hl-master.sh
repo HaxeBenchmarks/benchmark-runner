@@ -1,7 +1,0 @@
-#!/bin/bash
-
-readonly HASHLINK_BASE=$TOOLING_BASE/hashlink/hashlink-master
-
-export LIBRARY_PATH=$HASHLINK_BASE/lib:$LIBRARY_PATH
-export LD_LIBRARY_PATH=$HASHLINK_BASE/lib:$LD_LIBRARY_PATH
-export PATH=$HASHLINK_BASE/bin:$PATH
