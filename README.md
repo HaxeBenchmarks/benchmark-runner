@@ -9,6 +9,18 @@ This is a WIP benchmark runner for [`benchs.haxe.org`](https://benchs.haxe.org/)
 
 You will find test results in console output and in three JSON files inside subfolder `benchmark-run`.
 
+For C++ and Hashlink targets you need environment variable `TOOLING_BASE` set to a folder that holds subfolders with different tool / library versions:
+
+- `hashlink/hashlink-1.1` - installation of version 1.1 of Hashlink for Haxe 3
+- `hashlink/hashlink-1.11` - installation of version 1.11 of Hashlink for Haxe 4
+- `hashlink/hashlink-immix` - installation of immix GC branch of Hashlink for Haxe 4
+- `hxcpp/hxcppHaxe3` - latest hxcpp with Cppia host compiled for Haxe 3
+- `hxcpp/hxcppHaxe4` - latest hxcpp with Cppia host compiled for Haxe 4
+- `hxcpp/hxcppHaxeNightly` - latest hxcpp with Cppia host compiled for Haxe nightly
+
+You can edit `setup-*` files accordingly if you need a different setup to run benchmarks locally.
+You might be able to ignore them and setup tooling in your path and then run specific version and target combinations. Benchmark-runner uses `*.sh` files since it runs on a Linux machine.
+
 ## Running a benchmark case with one Haxe version
 
 - `cd cases/<testcase>`
