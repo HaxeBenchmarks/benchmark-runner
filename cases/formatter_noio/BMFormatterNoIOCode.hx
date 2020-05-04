@@ -27,7 +27,7 @@ class BMFormatterNoIOCode {
 	function getSources(path:String):Array<String> {
 		var sources:Array<String> = [];
 
-		var folderFunc:String->Void;
+		var folderFunc:String->Void = null;
 		folderFunc = function(path:String):Void {
 			for (f in FileSystem.readDirectory(path)) {
 				var fileName:String = Path.join([path, f]);
