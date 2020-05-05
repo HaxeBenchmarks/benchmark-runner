@@ -21,11 +21,13 @@ For C++ and Hashlink targets you need environment variable `TOOLING_BASE` set to
 You can edit `setup-*` files accordingly if you need a different setup to run benchmarks locally.
 You might be able to ignore them and setup tooling in your path and then run specific version and target combinations. Benchmark-runner uses `*.sh` files since it runs on a Linux machine.
 
-## Running a benchmark case with one Haxe version
+## Running a benchmark case with selected Haxe versions
 
 - `cd cases/<testcase>`
-- `export BENCHMARK_VERSIONS=haxe-nightly` or `set BENCHMARK_VERSIONS=haxe-nightly`
+- `export BENCHMARK_VERSIONS=haxe-nightly` or `set BENCHMARK_VERSIONS=haxe4,haxe-nightly`
 - `npx haxe run.hxml`
+
+Runs benchmark for all targets using Haxe 4.0.5 and Haxe nightly.
 
 Available versions are:
 
