@@ -415,8 +415,10 @@ class Benchmark {
 				} else {
 					compileTime = measure(() -> compileSuccess = compile(version, versionParams, target, compileParams, runParams));
 					log('compile time: $compileTime s (${compileSuccess ? "success" : "FAILED"})');
-					runTime = measure(() -> runSuccess = run(target, compileParams, runParams));
-					log('run time: $runTime s (${runSuccess ? "success" : "FAILED"})');
+					if (compileSuccess) {
+						runTime = measure(() -> runSuccess = run(target, compileParams, runParams));
+						log('run time: $runTime s (${runSuccess ? "success" : "FAILED"})');
+					}
 				}
 				// TODO: record failures
 				if (compileSuccess && runSuccess)
