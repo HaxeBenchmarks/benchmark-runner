@@ -15,7 +15,7 @@ class BMSHA256Code {
 
 	static function main() {
 		try {
-			new BMASHA256Code();
+			new BMSHA256Code();
 		} catch (e:Any) {
 			trace(e);
 		}
