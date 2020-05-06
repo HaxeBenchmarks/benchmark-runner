@@ -1,6 +1,6 @@
 import haxe.crypto.Sha256;
 
-class BMASHA256Code {
+class BMSHA256Code {
 	public function new() {
 		var allHash:StringBuf = new StringBuf();
 		for (index in 0...100) {
