@@ -279,7 +279,7 @@ class Benchmark {
 	static function installLibraries(libraries:Null<Map<String, String>>):Void {
 		if (libraries != null)
 			for (lib => url in libraries) {
-				scmd("lix", ["install", url]);
+				scmd("lix", ["install", "--flat", url]);
 			}
 	}
 
