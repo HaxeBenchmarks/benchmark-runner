@@ -17,6 +17,11 @@ class Benchmark {
 	};
 	public static final SKIP:CompileParams = {};
 
+	public static final KEEP_BINARY:Bool = {
+		var env = Sys.getEnv("BENCHMARK_KEEP_BINARY");
+		env != null ? env == "keep" : false;
+	};
+
 	// base relative to cases/*/benchmark-run
 	static final BENCHMARK_BASE = "../../..";
 	static final SCRIPTS_BASE = '$BENCHMARK_BASE/scripts';
@@ -258,7 +263,11 @@ class Benchmark {
 			' "' + args.join('" "') + '"';
 		}
 		log('  * $cmd${argsText}');
-		return Sys.command(cmd, args);
+		var exitCode:Int = Sys.command(cmd, args);
+		if (exitCode != 0) {
+			log('  * exit code = $exitCode');
+		}
+		return exitCode;
 	}
 
 	static function mapConcat<T>(maps:Array<Null<Map<String, T>>>):Map<String, T> {
@@ -344,7 +353,8 @@ class Benchmark {
 			return true;
 		log('running ${target.name} ...');
 		var runArgs = target.run.replace("Main", compileParams.main.split(".").pop()).split(" ");
-		if (runParams.timeout != null) {
+
+		if ((runParams.timeout != null) && (scmd("timeout", ["--version"]) == 0)) {
 			runArgs.unshift('${runParams.timeout}');
 			runArgs.unshift('${runParams.timeout}');
 			runArgs.unshift('-k');
@@ -438,6 +448,9 @@ class Benchmark {
 			// cleanup
 			scmd("lix", ["scope", "delete"]);
 			scmd("rm", ["-rf", "haxe_libraries"]);
+			if (!KEEP_BINARY) {
+				scmd("rm", ["-rf", "out"]);
+			}
 			// record data
 			if (versionOutputs.length > 0) {
 				var archive:Array<Dynamic> = FileSystem.exists(version.jsonOutput) ? Json.parse(File.getContent(version.jsonOutput)) : [];
