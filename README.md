@@ -64,3 +64,9 @@ Available targets are:
 - `neko`
 - `php`
 - `python`
+
+## stop benchmark runner from deleting out folder 
+
+You can set `BENCHMARK_KEEP_BINARY=keep` to not delete binary folder after a run. 
+Usually you want a clean out folder when switching between versions, but if you run a single version and / or target it can make sense to keep the binaries, 
+so you can dissect them.

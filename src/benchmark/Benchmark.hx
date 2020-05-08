@@ -22,6 +22,8 @@ class Benchmark {
 		env != null ? env == "keep" : false;
 	};
 
+	public static final HAS_TIMEOUT:Bool = scmd("timeout", ["--version"]) == 0;
+
 	// base relative to cases/*/benchmark-run
 	static final BENCHMARK_BASE = "../../..";
 	static final SCRIPTS_BASE = '$BENCHMARK_BASE/scripts';
@@ -248,7 +250,7 @@ class Benchmark {
 	static var logPrefix:Array<String> = [];
 
 	static function log(msg:String):Void {
-		if (logPrefix.length > 0) {
+		if ((logPrefix != null) && (logPrefix.length > 0)) {
 			Sys.println('[${logPrefix.join(",")}] $msg');
 		} else {
 			Sys.println(msg);
@@ -354,7 +356,7 @@ class Benchmark {
 		log('running ${target.name} ...');
 		var runArgs = target.run.replace("Main", compileParams.main.split(".").pop()).split(" ");
 
-		if ((runParams.timeout != null) && (scmd("timeout", ["--version"]) == 0)) {
+		if ((runParams.timeout != null) && HAS_TIMEOUT) {
 			runArgs.unshift('${runParams.timeout}');
 			runArgs.unshift('${runParams.timeout}');
 			runArgs.unshift('-k');
