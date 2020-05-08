@@ -63,6 +63,14 @@ class BMFormatter {
 					Sys.command('git checkout -- .');
 					Sys.setCwd(cwd);
 				}
+				if (target == "cppia") {
+					// Cppia is run through haxelib, setting HAXELIB_RUN=1 which makes formatter remoce the _last_ command line argument
+					// apparently running `haxelib run formatter` adds current working directory to list of args
+					return {
+						args: args.concat(["dummy_arg"]),
+						timeout: 5 * 60
+					};
+				}
 				{
 					args: args,
 					timeout: 5 * 60
