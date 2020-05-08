@@ -251,7 +251,13 @@ class Benchmark {
 	}
 
 	static function scmd(cmd:String, ?args:Array<String>):Int {
-		log('  * $cmd $args');
+		var argsText:String = if (args == null) {
+			"";
+		}
+		else {
+			' "' + args.join('" "') + '"';
+		}
+		log('  * $cmd${argsText}');
 		return Sys.command(cmd, args);
 	}
 
