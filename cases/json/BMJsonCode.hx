@@ -1,5 +1,4 @@
 import haxe.Json;
-import sys.FileSystem;
 import sys.io.File;
 
 class BMJsonCode {
@@ -8,7 +7,7 @@ class BMJsonCode {
 	public static function main():Void {
 		var text = File.getContent("../data/hxformat-schema.json");
 		var schema:Any = Json.parse(text);
-		var listOfSchema:Array<Any> = [ for (i in 0...REPEATS) schema ];
+		var listOfSchema:Array<Any> = [for (i in 0...REPEATS) schema];
 		for (i in 0...REPEATS) {
 			text = Json.stringify(schema);
 			schema = Json.parse(text);

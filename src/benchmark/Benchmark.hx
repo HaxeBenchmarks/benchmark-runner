@@ -22,7 +22,7 @@ class Benchmark {
 		env != null ? env == "keep" : false;
 	};
 
-	public static final HAS_TIMEOUT:Bool = scmd("timeout", ["--version"]) == 0;
+	public static final HAS_TIMEOUT:Bool = scmd('../../scripts/tools/detect-timeout.sh') == 0;
 
 	// base relative to cases/*/benchmark-run
 	static final BENCHMARK_BASE = "../../..";
@@ -174,22 +174,22 @@ class Benchmark {
 				target;
 			}
 		].concat([
-				{
-					name: "HashLink",
-					id: "hl",
-					compile: "-hl out/hl.hl",
-					run: '$SCRIPTS_BASE/hl-1.1/run-hl.sh out/hl.hl',
-					installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
-				},
-				{
-					name: "HashLink/C",
-					id: "hlc",
-					compile: "-hl out/hlc/hlc.c",
-					postCompile: '$SCRIPTS_BASE/hl-1.1/compile.sh out/hlc',
-					run: '$SCRIPTS_BASE/hl-1.1/run-hlc.sh out/hlc/hlc',
-					installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
-				}
-			]);
+			{
+				name: "HashLink",
+				id: "hl",
+				compile: "-hl out/hl.hl",
+				run: '$SCRIPTS_BASE/hl-1.1/run-hl.sh out/hl.hl',
+				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
+			},
+			{
+				name: "HashLink/C",
+				id: "hlc",
+				compile: "-hl out/hlc/hlc.c",
+				postCompile: '$SCRIPTS_BASE/hl-1.1/compile.sh out/hlc',
+				run: '$SCRIPTS_BASE/hl-1.1/run-hlc.sh out/hlc/hlc',
+				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
+			}
+		]);
 		var haxe4targets:Array<Target> = [
 			for (target in createTargets()) {
 				switch (target.id) {
@@ -260,8 +260,7 @@ class Benchmark {
 	static function scmd(cmd:String, ?args:Array<String>):Int {
 		var argsText:String = if (args == null) {
 			"";
-		}
-		else {
+		} else {
 			' "' + args.join('" "') + '"';
 		}
 		log('  * $cmd${argsText}');
@@ -370,6 +369,7 @@ class Benchmark {
 
 	public static function benchmarkAll(versionSetup:(haxe:String) -> CompileParams, compileParams:(haxe:String, target:String) -> CompileParams,
 			runParams:(haxe:String, target:String) -> RunParams):Void {
+		logEnvVars();
 		if (!FileSystem.exists("benchmark-run"))
 			FileSystem.createDirectory("benchmark-run");
 		Sys.setCwd("benchmark-run");
@@ -463,6 +463,32 @@ class Benchmark {
 				});
 				File.saveContent(version.jsonOutput, Json.stringify(archive));
 			}
+		}
+	}
+
+	static function logEnvVars() {
+		if (VERSION_FILTER == null) {
+			log('BENCHMARK_VERSIONS not set - running all Haxe versions');
+		} else {
+			log('BENCHMARK_VERSIONS=$VERSION_FILTER');
+		}
+
+		if (TARGET_FILTER == null) {
+			log('BENCHMARK_TARGETS not set - running all targets');
+		} else {
+			log('BENCHMARK_TARGETS=$TARGET_FILTER');
+		}
+
+		if (KEEP_BINARY) {
+			log('BENCHMARK_KEEP_BINARY=keep');
+		} else {
+			log('BENCHMARK_KEEP_BINARY not set, wiping output folder after each run');
+		}
+
+		if (HAS_TIMEOUT) {
+			log('using timeout to limit runtime');
+		} else {
+			log('not using timeout');
 		}
 	}
 }

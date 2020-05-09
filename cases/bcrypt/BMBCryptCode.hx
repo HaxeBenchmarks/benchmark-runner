@@ -22,4 +22,5 @@ class BMBCryptCode {
 		} catch (e:Any) {
 			trace(e);
 		}
-	}}
+	}
+}

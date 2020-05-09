@@ -7,7 +7,7 @@ import formatter.config.Config;
 import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 
 class BMFormatterNoIOCode {
-	public function new() { 
+	public function new() {
 		// segmentation faults in C++
 		// var sources:Array<String> = BenchmarkStatMacro.getSources("dataNoIO");
 

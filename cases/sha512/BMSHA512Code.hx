@@ -13,7 +13,6 @@ class BMSHA512Code {
 		Sha512.encode(allHash.toString());
 	}
 
-
 	static function main() {
 		try {
 			new BMSHA512Code();

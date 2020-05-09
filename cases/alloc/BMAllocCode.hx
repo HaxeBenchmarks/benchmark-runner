@@ -2,7 +2,6 @@ import haxe.io.Bytes;
 
 class BMAllocCode {
 	public function new() {
-
 		var count:Int = 500000;
 
 		allocBytes(count, 100);
@@ -10,7 +9,6 @@ class BMAllocCode {
 		allocBytes(count, 101);
 		allocBytes(count, 1001);
 		allocBytes(count, 102);
-
 	}
 
 	function allocBytes(count:Int, size:Int) {
