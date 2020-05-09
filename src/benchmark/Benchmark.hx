@@ -448,9 +448,9 @@ class Benchmark {
 			}
 			logPrefix.splice(1, logPrefix.length);
 			// cleanup
-			scmd("lix", ["scope", "delete"]);
-			scmd("rm", ["-rf", "haxe_libraries"]);
 			if (!KEEP_BINARY) {
+				scmd("lix", ["scope", "delete"]);
+				scmd("rm", ["-rf", "haxe_libraries"]);
 				scmd("rm", ["-rf", "out"]);
 			}
 			// record data
