@@ -1,4 +1,5 @@
 import haxe.io.Bytes;
+import haxe.io.Error;
 
 class BMAllocCode {
 	public function new() {
@@ -15,12 +16,12 @@ class BMAllocCode {
 		var data:Array<Bytes> = [];
 		for (i in 0...count) {
 			var bytes:Bytes = Bytes.alloc(size);
-			bytes.fill(0, size, i);
+			bytes.fill(0, size, i % 256);
 			data.push(bytes);
 		}
 		for (i in 0...count) {
 			var bytes:Bytes = Bytes.alloc(size);
-			bytes.fill(0, size, i);
+			bytes.fill(0, size, i % 256);
 			bytes.compare(data[i]);
 		}
 	}
@@ -28,6 +29,8 @@ class BMAllocCode {
 	static function main() {
 		try {
 			new BMAllocCode();
+		} catch (e:Error) {
+			trace(e);
 		} catch (e:Any) {
 			trace(e);
 		}
