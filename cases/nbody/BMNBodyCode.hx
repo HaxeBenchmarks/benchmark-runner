@@ -68,8 +68,9 @@ class BMNBodyCode {
 
 	public static function main() {
 		var nbodies = new BMNBodyCode();
-		for (i in 0...500000)
-			nbodies.advance(0.01);
+		for (j in 0...20)
+			for (i in 0...500000)
+				nbodies.advance(0.01);
 		Std.int(nbodies.energy() * 1000000);
 	}
 }
