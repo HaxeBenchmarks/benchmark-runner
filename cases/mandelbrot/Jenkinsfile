@@ -20,8 +20,7 @@ pipeline {
                 echo 'run benchmark'
                 sh '''
                     cd cases/mandelbrot
-                    mkdir -p benchmark-run
-                    ln -sfn $BENCHMARK_RESULTS_BASE/mandelbrot/*.json benchmark-run/
+                    ../../scripts/tools/setup-data.sh mandelbrot
                     lix download
                     haxe run.hxml
                 '''
