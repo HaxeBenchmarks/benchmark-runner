@@ -3,6 +3,7 @@ package benchmark;
 import haxe.Json;
 import sys.FileSystem;
 import sys.io.File;
+import data.TestRun;
 
 using StringTools;
 
@@ -410,7 +411,7 @@ class Benchmark {
 			};
 			log('resolved version: $resolvedVersion');
 			installLibraries(mapConcat([version.installLibraries, versionParams.installLibraries]));
-			var versionOutputs = [];
+			var versionOutputs:Array<TargetResult> = [];
 			// target setup, compile, and run
 			for (target in targets) {
 				logPrefix[1] = target.id;
@@ -443,7 +444,8 @@ class Benchmark {
 					versionOutputs.push({
 						name: target.name,
 						compileTime: compileTime,
-						time: runTime
+						time: runTime,
+						status: Success
 					});
 			}
 			logPrefix.splice(1, logPrefix.length);
@@ -455,7 +457,7 @@ class Benchmark {
 			}
 			// record data
 			if (versionOutputs.length > 0) {
-				var archive:Array<Dynamic> = FileSystem.exists(version.jsonOutput) ? Json.parse(File.getContent(version.jsonOutput)) : [];
+				var archive:Array<TestRun> = FileSystem.exists(version.jsonOutput) ? Json.parse(File.getContent(version.jsonOutput)) : [];
 				archive.push({
 					date: runDate.toString(),
 					haxeVersion: resolvedVersion,
