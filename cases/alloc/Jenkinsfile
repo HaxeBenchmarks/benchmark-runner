@@ -20,8 +20,7 @@ pipeline {
                 echo 'run benchmark'
                 sh '''
                     cd cases/alloc
-                    mkdir -p benchmark-run
-                    ln -sfn $BENCHMARK_RESULTS_BASE/alloc/*.json benchmark-run/
+                    ../../scripts/tools/setup-data.sh alloc
                     lix download
                     haxe run.hxml
                 '''

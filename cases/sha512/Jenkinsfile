@@ -20,8 +20,7 @@ pipeline {
                 echo 'run benchmark'
                 sh '''
                     cd cases/sha512
-                    mkdir -p benchmark-run
-                    ln -sfn $BENCHMARK_RESULTS_BASE/sha512/*.json benchmark-run/
+                    ../../scripts/tools/setup-data.sh sha512
                     lix download
                     haxe run.hxml
                 '''

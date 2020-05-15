@@ -21,8 +21,7 @@ pipeline {
                     cd cases/formatter
                     mkdir -p data
                     ln -sfn $FORMATTER_INPUT_DATA_BASE/* data/
-                    mkdir -p benchmark-run
-                    ln -sfn $BENCHMARK_RESULTS_BASE/formatter/*.json benchmark-run/
+                    ../../scripts/tools/setup-data.sh formatter
                     lix download
                     haxe run.hxml
                 '''

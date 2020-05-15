@@ -22,8 +22,7 @@ pipeline {
                     mkdir -p data
                     ln -sfn $FORMATTER_NOIO_INPUT_DATA_BASE/* data/
 
-                    mkdir -p benchmark-run
-                    ln -sfn $BENCHMARK_RESULTS_BASE/formatter_noio/*.json benchmark-run/
+                    ../../scripts/tools/setup-data.sh formatter_noio
                     lix download
                     haxe run.hxml
                 '''

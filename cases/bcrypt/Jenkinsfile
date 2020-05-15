@@ -20,8 +20,7 @@ pipeline {
                 echo 'run benchmark'
                 sh '''
                     cd cases/bcrypt
-                    mkdir -p benchmark-run
-                    ln -sfn $BENCHMARK_RESULTS_BASE/bcrypt/*.json benchmark-run/
+                    ../../scripts/tools/setup-data.sh bcrypt
                     lix download
                     haxe run.hxml
                 '''
