@@ -20,8 +20,7 @@ pipeline {
                 echo 'run benchmark'
                 sh '''
                     cd cases/nbody
-                    mkdir -p benchmark-run
-                    ln -sfn $BENCHMARK_RESULTS_BASE/nbody/*.json benchmark-run/
+                    ../../scripts/tools/setup-data.sh nbody
                     lix download
                     haxe run.hxml
                 '''
