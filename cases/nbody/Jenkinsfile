@@ -6,7 +6,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
     }
     triggers {
-        upstream(upstreamProjects: 'cases/mandelbrot_anon_objects', threshold: hudson.model.Result.SUCCESS)
+        upstream(upstreamProjects: 'Benchmarks/cases%2Fmandelbrot_anon_objects', threshold: hudson.model.Result.SUCCESS)
     }
 
     stages {
