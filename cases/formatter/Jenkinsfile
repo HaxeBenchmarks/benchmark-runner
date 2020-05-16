@@ -6,7 +6,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
     }
     triggers {
-        upstream(upstreamProjects: 'cases/binarytrees', threshold: hudson.model.Result.SUCCESS)
+        upstream(upstreamProjects: 'Benchmarks/cases%2Fbinarytrees', threshold: hudson.model.Result.SUCCESS)
     }
     stages {
         stage('checkout') {
