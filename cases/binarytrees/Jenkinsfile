@@ -6,7 +6,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
     }
     triggers {
-        cron 'H H/6 * * *'
+        upstream(upstreamProjects: 'cases/bcrypt', threshold: hudson.model.Result.SUCCESS)
     }
 
     stages {
