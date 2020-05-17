@@ -114,7 +114,7 @@ class Benchmark {
 				name: "NodeJS",
 				id: "js",
 				compile: "-js out/js.js",
-				installLibraries: ["hxnodejs" => "haxelib:/hxnodejs#12.0.0"],
+				installLibraries: ["hxnodejs" => "gh://github.com/HaxeFoundation/hxnodejs"],
 				useLibraries: ["hxnodejs"],
 				run: "node out/js.js"
 			},
@@ -122,7 +122,7 @@ class Benchmark {
 				name: "NodeJS (ES6)",
 				id: "js-es6",
 				compile: "-js out/js-es6.js",
-				installLibraries: ["hxnodejs" => "haxelib:/hxnodejs#12.0.0"],
+				installLibraries: ["hxnodejs" => "gh://github.com/HaxeFoundation/hxnodejs"],
 				useLibraries: ["hxnodejs"],
 				defines: ["js-es" => "6"],
 				run: "node out/js-es6.js"
