@@ -13,7 +13,7 @@ class BMDox {
 			(haxe) -> {
 				if (haxe == "haxe3") {
 					// doesn't run on Haxe 3
-					return {};
+					return Benchmark.SKIP;
 				}
 				{
 					installLibraries: [
