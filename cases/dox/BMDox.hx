@@ -27,20 +27,14 @@ class BMDox {
 				{
 					useLibraries: ["hxtemplo", "hxparse", "hxargs", "markdown"],
 					classPaths: ["..", "../dox/src"],
+					compileArgs: ["-dce" => "no"],
 					main: "dox.Dox"
 				}
 			}, // target run
 			(haxe, target) -> {
 				Sys.command("rm -rf pages");
 				{
-					args: [
-						"-theme",
-						"../dox/themes/default",
-						"-res",
-						"..dox/resources/meta.json",
-						"-i",
-						"../data"
-					],
+					args: ["-theme", "../dox/themes/default", "-i", "../data"],
 					timeout: 3 * 60
 				}
 			});

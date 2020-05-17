@@ -320,6 +320,12 @@ class Benchmark {
 			haxeArgs.push("-lib");
 			haxeArgs.push(lib);
 		}
+		for (arg => val in compileParams.compileArgs) {
+			haxeArgs.push(arg);
+			if (val != "") {
+				haxeArgs.push(val);
+			}
+		}
 		for (define => val in mapConcat([version.defines, versionParams.defines, target.defines, compileParams.defines])) {
 			haxeArgs.push("-D");
 			haxeArgs.push(val == "" ? define : '$define=$val');
