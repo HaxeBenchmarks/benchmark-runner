@@ -91,7 +91,7 @@ class BMMandelbrotCode {
 			i:inI, j:inJ
 		};
 	#else
-	inline public function createComplex(inI:Float, inJ:Float)
+	public function createComplex(inI:Float, inJ:Float)
 		return new Complex(inI, inJ);
 	#end
 
