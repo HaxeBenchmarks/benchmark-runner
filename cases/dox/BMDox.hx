@@ -30,7 +30,7 @@ class BMDox {
 					useLibraries: ["hxtemplo", "hxparse", "hxargs", "markdown"],
 					classPaths: ["..", "../dox/src"],
 					compileArgs: ["-dce" => "no"],
-					main: "dox.Dox"
+					main: "BMDoxCode"
 				}
 			}, // target run
 			(haxe, target) -> {
