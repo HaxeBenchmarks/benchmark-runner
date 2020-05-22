@@ -4,8 +4,10 @@ import benchmark.Benchmark;
 class BMFormatterNoIO {
 	public static function main():Void {
 		FileSystem.createDirectory("data");
-		Benchmark.benchmarkAll(
-			// version setup
+		#if POPULATE_DATA
+		Sys.command('svn export https://github.com/HaxeCheckstyle/haxe-formatter/trunk/src data');
+		#end
+		Benchmark.benchmarkAll( // version setup
 			(haxe) -> {
 				installLibraries: haxe == "haxe3" ? [
 					"formatter" => "haxelib:/formatter#1.9.1",
@@ -25,26 +27,16 @@ class BMFormatterNoIO {
 					"json2object" => "haxelib:/json2object#3.6.4",
 					"tokentree" => "haxelib:/tokentree#1.0.23"
 				]
-			},
-			// target compile
+			}, // target compile
 			(haxe, target) -> {
-				useLibraries: [
-					"tokentree",
-					"haxeparser",
-					"hxparse",
-					"json2object",
-					"hxargs",
-					"formatter"
-				],
+				useLibraries: ["tokentree", "haxeparser", "hxparse", "json2object", "hxargs", "formatter"],
 				classPaths: [".."],
 				main: "BMFormatterNoIOCode"
-			},
-			// target run
+			}, // target run
 			(haxe, target) -> {
 				{
 					timeout: 5 * 60
 				};
-			}
-		);
+			});
 	}
 }

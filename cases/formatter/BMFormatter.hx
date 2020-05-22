@@ -15,8 +15,10 @@ class BMFormatter {
 			args.push('../data/${source.dir}/${source.sub}');
 			// don't check out fresh sources automatically
 			// should be a manual, because new sources will have an effect on benchmark runtime
-			// 	if (!FileSystem.exists('data/${source.dir}'))
-			// 		Sys.command('git clone ${source.url} --depth 1 data/${source.dir}');
+			#if POPULATE_DATA
+			if (!FileSystem.exists('data/${source.dir}'))
+				Sys.command('git clone ${source.url} --depth 1 data/${source.dir}');
+			#end
 		}
 		Benchmark.benchmarkAll( // version setup
 			(haxe) -> {

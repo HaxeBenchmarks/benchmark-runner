@@ -6,6 +6,10 @@ class BMDox {
 	public static function main():Void {
 		Sys.command("git clone https://github.com/HaxeFoundation/dox.git --depth 1 dox");
 
+		#if POPULATE_DATA
+		Sys.command("svn export https://github.com/HaxeFoundation/api.haxe.org/trunk/xml/4.1.0");
+		#end
+
 		var metaJson:String = File.getContent("dox/resources/meta.json");
 		FileSystem.createDirectory("benchmark-run/resources");
 		File.saveContent("benchmark-run/resources/meta.json", metaJson);
