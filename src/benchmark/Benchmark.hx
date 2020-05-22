@@ -240,7 +240,7 @@ class Benchmark {
 			{
 				name: "Haxe 4",
 				id: "haxe4",
-				lixId: "4.1.0",
+				lixId: "4.1.1",
 				env: [],
 				jsonOutput: "haxe4.json",
 				targets: haxe4targets
