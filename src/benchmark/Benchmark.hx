@@ -1,6 +1,7 @@
 package benchmark;
 
 import haxe.Json;
+import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import data.TestRun;
@@ -24,6 +25,7 @@ class Benchmark {
 	};
 
 	public static final HAS_TIMEOUT:Bool = scmd('../../scripts/tools/detect-timeout.sh') == 0;
+	static var detectedTools:Map<Tool, String> = detectToolVersions();
 
 	// base relative to cases/*/benchmark-run
 	static final BENCHMARK_BASE = "../../..";
@@ -133,6 +135,13 @@ class Benchmark {
 				id: "lua",
 				compile: "-lua out/lua.lua",
 				run: "lua out/lua.lua"
+			},
+			// luajit
+			{
+				name: "Luajit",
+				id: "luajit",
+				compile: "-lua out/luajit.lua",
+				run: "luajit out/luajit.lua"
 			},
 			// neko
 			{
@@ -297,6 +306,15 @@ class Benchmark {
 		if (libraries != null)
 			for (lib => url in libraries) {
 				scmd("lix", ["install", "--flat", url]);
+				switch (lib) {
+					case "hxnodejs":
+						detectedTools.set(HxNodeJs, toolVersionFromHaxeLibraries(lib));
+					case "hxjava":
+						detectedTools.set(HxJava, toolVersionFromHaxeLibraries(lib));
+					case "hxcs":
+						detectedTools.set(HxCs, toolVersionFromHaxeLibraries(lib));
+					default:
+				}
 			}
 	}
 
@@ -382,6 +400,7 @@ class Benchmark {
 		if (!FileSystem.exists("benchmark-run"))
 			FileSystem.createDirectory("benchmark-run");
 		Sys.setCwd("benchmark-run");
+
 		var runDate = Date.now();
 		for (version in VERSIONS) {
 			logPrefix = [version.id];
@@ -410,13 +429,7 @@ class Benchmark {
 			scmd("lix", ["scope", "create"]);
 			scmd("lix", ["install", "haxe", version.lixId]);
 			scmd("lix", ["use", "haxe", version.lixId]);
-			var resolvedVersion = {
-				var proc = new sys.io.Process("haxe", ["-version"]);
-				proc.exitCode();
-				var version = (proc.stdout.readAll().toString() + proc.stderr.readAll().toString()).trim();
-				proc.close();
-				version;
-			};
+			var resolvedVersion = readVersion("haxe", ["-version"]);
 			log('resolved version: $resolvedVersion');
 			installLibraries(mapConcat([version.installLibraries, versionParams.installLibraries]));
 			var versionOutputs:Array<TargetResult> = [];
@@ -469,11 +482,65 @@ class Benchmark {
 				archive.push({
 					date: runDate.toString(),
 					haxeVersion: resolvedVersion,
+					toolVersions: detectedTools,
 					targets: versionOutputs
 				});
 				File.saveContent(version.jsonOutput, Json.stringify(archive));
 			}
 		}
+	}
+
+	static function detectToolVersions():Map<Tool, String> {
+		var toolVersions:Map<Tool, String> = new Map<Tool, String>();
+		toolVersions.set(Php, extractWord(readVersion("php", ["-v"]), 1));
+		toolVersions.set(Mono, extractWord(readVersion("mono", ["--version"]), 4));
+		toolVersions.set(Python, extractWord(readVersion("python", ["--version"]), 1));
+		toolVersions.set(Lua, extractWord(readVersion("lua", ["-v"]), 1));
+		toolVersions.set(LuaJit, extractWord(readVersion("luajit", ["-v"]), 1));
+		toolVersions.set(NodeJs, readVersion("nodejs", ["--version"]));
+		toolVersions.set(Java, extractWord(readVersion("java", ["--version"]), 1));
+
+		// TODO automatically detect hxcpp and HL versions
+		toolVersions.set(Hl, "1.11");
+
+		return toolVersions;
+	}
+
+	static function toolVersionFromHaxeLibraries(lib:String):String {
+		var content:String = File.getContent(Path.join(["haxe_libraries", lib + ".hxml"]));
+		var lines:Array<String> = content.split("\n").filter(l -> l.startsWith("-cp"));
+
+		if (lines.length != 1) {
+			return "unknown";
+		}
+		var reg:EReg = ~/([^\/]+)\/haxelib/;
+		if (reg.match(lines[0])) {
+			return reg.matched(1);
+		}
+		reg = ~/github\/([a-fA-F0-9]+)/;
+		if (reg.match(lines[0])) {
+			return reg.matched(1);
+		}
+		return "unknown";
+	}
+
+	static function extractWord(text:String, index:Int):String {
+		if ((text == null) || (text.length <= 0)) {
+			return "";
+		}
+		var parts:Array<String> = text.split(" ");
+		if (parts.length < index) {
+			return text;
+		}
+		return parts[index];
+	}
+
+	static function readVersion(command:String, args:Array<String>):String {
+		var proc = new sys.io.Process(command, args);
+		proc.exitCode();
+		var version = (proc.stdout.readAll().toString() + proc.stderr.readAll().toString()).trim();
+		proc.close();
+		return version;
 	}
 
 	static function logEnvVars() {
