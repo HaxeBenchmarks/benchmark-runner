@@ -31,8 +31,10 @@ class BMAllocCode {
 			new BMAllocCode();
 		} catch (e:Error) {
 			trace(e);
+			Sys.exit(1);
 		} catch (e:Any) {
 			trace(e);
+			Sys.exit(1);
 		}
 	}
 }

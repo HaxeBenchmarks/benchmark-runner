@@ -25,29 +25,34 @@ class BMBinaryTreesCode {
 	}
 
 	static function main() {
-		var minDepth = 8;
-		var n = 14;
-		var maxDepth = Std.int(Math.max(minDepth + 2, n));
-		var stretchDepth = maxDepth + 1;
-		var check = bottomUpTree(0, stretchDepth).itemCheck();
+		try {
+			var minDepth = 8;
+			var n = 14;
+			var maxDepth = Std.int(Math.max(minDepth + 2, n));
+			var stretchDepth = maxDepth + 1;
+			var check = bottomUpTree(0, stretchDepth).itemCheck();
 
-		var result = check;
+			var result = check;
 
-		var longLivedTree = bottomUpTree(0, maxDepth);
-		var depth = minDepth;
-		while (depth <= maxDepth) {
-			var iterations = 1 << (maxDepth - depth + minDepth);
-			check = 0;
-			for (i in 0...iterations) {
-				check += bottomUpTree(i, depth).itemCheck();
-				check += bottomUpTree(-i, depth).itemCheck();
+			var longLivedTree = bottomUpTree(0, maxDepth);
+			var depth = minDepth;
+			while (depth <= maxDepth) {
+				var iterations = 1 << (maxDepth - depth + minDepth);
+				check = 0;
+				for (i in 0...iterations) {
+					check += bottomUpTree(i, depth).itemCheck();
+					check += bottomUpTree(-i, depth).itemCheck();
+				}
+				result ^= check;
+				// console.log(iterations*2 + "\t trees of depth " + depth + "\t check: " + check);
+				depth += 2;
 			}
-			result ^= check;
-			// console.log(iterations*2 + "\t trees of depth " + depth + "\t check: " + check);
-			depth += 2;
-		}
 
-		result ^= longLivedTree.itemCheck();
-		// console.log("long lived tree of depth " + maxDepth + "\t check: " + longLivedTree.itemCheck());
+			result ^= longLivedTree.itemCheck();
+			// console.log("long lived tree of depth " + maxDepth + "\t check: " + longLivedTree.itemCheck());
+		} catch (e:Any) {
+			trace(e);
+			Sys.exit(1);
+		}
 	}
 }

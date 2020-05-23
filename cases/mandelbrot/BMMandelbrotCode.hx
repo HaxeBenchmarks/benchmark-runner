@@ -111,6 +111,7 @@ class BMMandelbrotCode {
 			new BMMandelbrotCode();
 		} catch (e:Any) {
 			trace(e);
+			Sys.exit(1);
 		}
 	}
 }

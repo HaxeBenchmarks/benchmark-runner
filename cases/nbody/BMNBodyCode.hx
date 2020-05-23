@@ -67,11 +67,16 @@ class BMNBodyCode {
 	}
 
 	public static function main() {
-		var nbodies = new BMNBodyCode();
-		for (j in 0...20)
-			for (i in 0...500000)
-				nbodies.advance(0.01);
-		Std.int(nbodies.energy() * 1000000);
+		try {
+			var nbodies = new BMNBodyCode();
+			for (j in 0...20)
+				for (i in 0...500000)
+					nbodies.advance(0.01);
+			Std.int(nbodies.energy() * 1000000);
+		} catch (e:Any) {
+			trace(e);
+			Sys.exit(1);
+		}
 	}
 }
 

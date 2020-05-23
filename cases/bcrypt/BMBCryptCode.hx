@@ -21,6 +21,7 @@ class BMBCryptCode {
 			new BMBCryptCode();
 		} catch (e:Any) {
 			trace(e);
+			Sys.exit(1);
 		}
 	}
 }

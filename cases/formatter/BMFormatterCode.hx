@@ -20,7 +20,12 @@ class BMFormatterCode {
 	var lastConfigFileName:Null<String>;
 
 	static function main() {
-		new BMFormatterCode();
+		try {
+			new BMFormatterCode();
+		} catch (e:Any) {
+			trace(e);
+			Sys.exit(1);
+		}
 	}
 
 	function new() {

@@ -18,6 +18,7 @@ class BMSHA512Code {
 			new BMSHA512Code();
 		} catch (e:Any) {
 			trace(e);
+			Sys.exit(1);
 		}
 	}
 }

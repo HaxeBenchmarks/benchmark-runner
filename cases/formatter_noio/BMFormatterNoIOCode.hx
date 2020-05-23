@@ -47,6 +47,7 @@ class BMFormatterNoIOCode {
 			new BMFormatterNoIOCode();
 		} catch (e:Any) {
 			trace(e);
+			Sys.exit(1);
 		}
 	}
 }

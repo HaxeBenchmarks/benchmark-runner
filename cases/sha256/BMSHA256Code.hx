@@ -18,6 +18,7 @@ class BMSHA256Code {
 			new BMSHA256Code();
 		} catch (e:Any) {
 			trace(e);
+			Sys.exit(1);
 		}
 	}
 }
