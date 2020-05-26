@@ -20,6 +20,10 @@ fi
 if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json ]; then
     echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json
 fi
+if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe-pr.json ]; then
+    echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe-pr.json
+fi
 ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe3.json benchmark-run/
 ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe4.json benchmark-run/
 ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json benchmark-run/
+ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe-pr.json benchmark-run/

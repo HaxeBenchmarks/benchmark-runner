@@ -302,10 +302,13 @@ class Benchmark {
 		return ret;
 	}
 
-	static function installLibraries(libraries:Null<Map<String, String>>):Void {
-		if (libraries != null)
+	static function installLibraries(libraries:Null<Map<String, String>>):Int {
+		if (libraries != null) {
 			for (lib => url in libraries) {
-				scmd("lix", ["install", "--flat", url]);
+				var libExit:Int = scmd("lix", ["install", "--flat", url]);
+				if (libExit != 0) {
+					return libExit;
+				}
 				switch (lib) {
 					case "hxnodejs":
 						detectedTools.set(HxNodeJs, toolVersionFromHaxeLibraries(lib));
@@ -316,6 +319,8 @@ class Benchmark {
 					default:
 				}
 			}
+		}
+		return 0;
 	}
 
 	static function measure(fn:Void->Void):Float {
@@ -328,7 +333,10 @@ class Benchmark {
 	static function compile(version:Version, versionParams:CompileParams, target:Target, compileParams:CompileParams, runParams:RunParams):Bool {
 		log('compiling ${target.name} ...');
 		var haxeArgs = [];
-		installLibraries(compileParams.installLibraries);
+		if (installLibraries(compileParams.installLibraries) != 0) {
+			log("failed to install libraries for compile step - (skipping)");
+			return false;
+		}
 		for (lib in arrConcat([
 			version.useLibraries,
 			versionParams.useLibraries,
@@ -401,6 +409,8 @@ class Benchmark {
 			FileSystem.createDirectory("benchmark-run");
 		Sys.setCwd("benchmark-run");
 
+		replaceVERSIONSwhenHaxePR();
+
 		var runDate = Date.now();
 		for (version in VERSIONS) {
 			logPrefix = [version.id];
@@ -427,11 +437,21 @@ class Benchmark {
 			// version prepare
 			log('preparing ${version.name} ...');
 			scmd("lix", ["scope", "create"]);
-			scmd("lix", ["install", "haxe", version.lixId]);
-			scmd("lix", ["use", "haxe", version.lixId]);
+			if (scmd("lix", ["install", "haxe", version.lixId]) != 0) {
+				log('failed to install Haxe ${version.lixId} - (skipping)');
+				continue;
+			}
+			if (scmd("lix", ["use", "haxe", version.lixId]) != 0) {
+				log('failed to use Haxe ${version.lixId} - (skipping)');
+				continue;
+			}
 			var resolvedVersion = readVersion("haxe", ["-version"]);
+
 			log('resolved version: $resolvedVersion');
-			installLibraries(mapConcat([version.installLibraries, versionParams.installLibraries]));
+			if (installLibraries(mapConcat([version.installLibraries, versionParams.installLibraries])) != 0) {
+				log('failed to download version specific libraries - (skipping)');
+				continue;
+			}
 			var versionOutputs:Array<TargetResult> = [];
 			// target setup, compile, and run
 			for (target in targets) {
@@ -444,7 +464,10 @@ class Benchmark {
 					log('initialising ${target.name} ...');
 					scmd(target.init);
 				}
-				installLibraries(mapConcat([target.installLibraries, compileParams.installLibraries]));
+				if (installLibraries(mapConcat([target.installLibraries, compileParams.installLibraries])) != 0) {
+					log('failed to download target specific libraries - (skipping)');
+					continue;
+				}
 				var compileTime = 0.0;
 				var runTime = 0.0;
 				var compileSuccess = true;
@@ -488,6 +511,27 @@ class Benchmark {
 				File.saveContent(version.jsonOutput, Json.stringify(archive));
 			}
 		}
+	}
+
+	static function replaceVERSIONSwhenHaxePR() {
+		var haxePR:Null<String> = Sys.getEnv("BENCHMARK_HAXE_PR");
+		if (haxePR == null || haxePR.length <= 0) {
+			return;
+		}
+		log('BENCHMARK_HAXE_PR=$haxePR');
+		var versions:Array<Version> = VERSIONS.filter(v -> v.id == "haxe-nightly");
+		if (versions.length != 1) {
+			log("Haxe nightly version not found - no Haxe PR run!!");
+			return;
+		}
+		var version:Version = versions[0];
+		version.id = "haxe-pr";
+		version.name = 'Haxe $haxePR';
+
+		version.lixId = haxePR;
+		version.jsonOutput = "haxe-pr.json";
+		VERSIONS = [version];
+		detectedTools.set(HaxePR, haxePR);
 	}
 
 	static function detectToolVersions():Map<Tool, String> {

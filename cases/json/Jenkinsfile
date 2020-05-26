@@ -5,8 +5,15 @@ pipeline {
         disableConcurrentBuilds()
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
     }
-    triggers {
-        upstream(upstreamProjects: 'Benchmarks/cases%2Fformatter_noio', threshold: hudson.model.Result.SUCCESS)
+    // triggers {
+    //     upstream(upstreamProjects: 'Benchmarks/cases%2Fformatter_noio', threshold: hudson.model.Result.SUCCESS)
+    // }
+    parameters {
+        string(name: 'GITHUB_PR', defaultValue: '', description: 'GitHub pull request to build')
+    }
+
+    environment {
+        BENCHMARK_HAXE_PR = "${params.GITHUB_PR}"
     }
 
     stages {
@@ -15,15 +22,24 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', depth: 1, noTags: false, reference: '', shallow: true]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/HaxeBenchmarks/benchmark-runner.git']]])
             }
         }
+
         stage('run benchmark') {
             steps {
-                echo 'run benchmark'
                 sh '''
                     cd cases/json
                     ../../scripts/tools/setup-data.sh json
                     lix download
                     haxe run.hxml
                 '''
+            }
+        }
+
+        stage('trigger next benchmark') {
+            when { 
+                environment name: 'GITHUB_PR', value: '' 
+            }
+            steps {
+                build job: 'Benchmarks/cases%2Fmandelbrot', parameters: [string(name: 'GITHUB_PR', value: "")], wait: false
             }
         }
     }

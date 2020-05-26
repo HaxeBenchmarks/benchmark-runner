@@ -5,9 +5,9 @@ pipeline {
         disableConcurrentBuilds()
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
     }
-    triggers {
-        upstream(upstreamProjects: 'Benchmarks/cases%2Fjson', threshold: hudson.model.Result.SUCCESS)
-    }
+    // triggers {
+    //     upstream(upstreamProjects: 'Benchmarks/cases%2Fjson', threshold: hudson.model.Result.SUCCESS)
+    // }
 
     stages {
         stage('checkout') {
