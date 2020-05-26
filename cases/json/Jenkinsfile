@@ -5,15 +5,13 @@ pipeline {
         disableConcurrentBuilds()
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
     }
-    // triggers {
-    //     upstream(upstreamProjects: 'Benchmarks/cases%2Fformatter_noio', threshold: hudson.model.Result.SUCCESS)
-    // }
+
     parameters {
-        string(name: 'GITHUB_PR', defaultValue: '', description: 'GitHub pull request to build')
+        string(name: 'HAXE_BRANCH', defaultValue: '', description: 'Haxe branch to build')
     }
 
     environment {
-        BENCHMARK_HAXE_PR = "${params.GITHUB_PR}"
+        BENCHMARK_HAXE_PR = "${params.HAXE_BRANCH}"
     }
 
     stages {
@@ -36,10 +34,10 @@ pipeline {
 
         stage('trigger next benchmark') {
             when { 
-                environment name: 'GITHUB_PR', value: '' 
+                environment name: 'HAXE_BRANCH', value: '' 
             }
             steps {
-                build job: 'Benchmarks/cases%2Fmandelbrot', parameters: [string(name: 'GITHUB_PR', value: "")], wait: false
+                build job: 'Benchmarks/cases%2Fmandelbrot', parameters: [string(name: 'HAXE_BRANCH', value: "")], wait: false
             }
         }
     }

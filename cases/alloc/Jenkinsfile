@@ -5,8 +5,13 @@ pipeline {
         disableConcurrentBuilds()
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
     }
-    triggers {
-        upstream(upstreamProjects: 'Benchmarks/cases%2Fsha512', threshold: hudson.model.Result.SUCCESS)
+
+    parameters {
+        string(name: 'HAXE_BRANCH', defaultValue: '', description: 'Haxe branch to build')
+    }
+
+    environment {
+        BENCHMARK_HAXE_PR = "${params.HAXE_BRANCH}"
     }
 
     stages {
@@ -24,6 +29,15 @@ pipeline {
                     lix download
                     haxe run.hxml
                 '''
+            }
+        }
+
+        stage('trigger next benchmark') {
+            when { 
+                environment name: 'HAXE_BRANCH', value: '' 
+            }
+            steps {
+                build job: 'Benchmarks/cases%2Fbcrypt', parameters: [string(name: 'HAXE_BRANCH', value: "")], wait: false
             }
         }
     }
