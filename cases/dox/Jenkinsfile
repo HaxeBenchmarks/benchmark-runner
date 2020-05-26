@@ -36,7 +36,7 @@ pipeline {
  
         stage('trigger next benchmark') {
             when { 
-                environment name: 'HAXE_BRANCH', value: '' 
+                environment name: 'BENCHMARK_HAXE_PR', value: ''
             }
             steps {
                 build job: 'Benchmarks/cases%2Fformatter', parameters: [string(name: 'HAXE_BRANCH', value: "")], wait: false

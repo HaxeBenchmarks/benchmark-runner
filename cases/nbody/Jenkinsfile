@@ -34,7 +34,7 @@ pipeline {
 
         stage('trigger next benchmark') {
             when { 
-                environment name: 'HAXE_BRANCH', value: '' 
+                environment name: 'BENCHMARK_HAXE_PR', value: ''
             }
             steps {
                 build job: 'Benchmarks/cases%2Fsha256', parameters: [string(name: 'HAXE_BRANCH', value: "")], wait: false
