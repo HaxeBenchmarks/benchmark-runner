@@ -34,6 +34,7 @@ Available versions are:
 - `haxe3` for Haxe 3.4.7
 - `haxe4` for Haxe 4.0.5
 - `haxe-nightly` for latest Haxe nightly build
+- `haxe-path` for any Haxe found in the `PATH` (skips `lix install` and `lix use`)
 
 ## Running a benchmark case for specific targets
 

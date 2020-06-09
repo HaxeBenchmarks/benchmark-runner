@@ -252,6 +252,14 @@ class Benchmark {
 				env: [],
 				jsonOutput: "haxe-nightly.json",
 				targets: haxeNightlytargets
+			},
+			{
+				name: "Haxe (PATH)",
+				id: "haxe-path",
+				lixId: null,
+				env: [],
+				jsonOutput: "haxe-path.json",
+				targets: haxeNightlytargets
 			}
 		];
 		vers;
@@ -274,7 +282,7 @@ class Benchmark {
 			' "' + args.join('" "') + '"';
 		}
 		log('  * $cmd${argsText}');
-		var exitCode:Int = Sys.command(cmd, args);
+		var exitCode:Int = try Sys.command(cmd, args) catch (e:Dynamic) -1;
 		if (exitCode != 0) {
 			log('  * exit code = $exitCode');
 		}
@@ -437,16 +445,17 @@ class Benchmark {
 			// version prepare
 			log('preparing ${version.name} ...');
 			scmd("lix", ["scope", "create"]);
-			if (scmd("lix", ["install", "haxe", version.lixId]) != 0) {
-				log('failed to install Haxe ${version.lixId} - (skipping)');
-				continue;
-			}
-			if (scmd("lix", ["use", "haxe", version.lixId]) != 0) {
-				log('failed to use Haxe ${version.lixId} - (skipping)');
-				continue;
+			if (version.lixId != null) {
+				if (scmd("lix", ["install", "haxe", version.lixId]) != 0) {
+					log('failed to install Haxe ${version.lixId} - (skipping)');
+					continue;
+				}
+				if (scmd("lix", ["use", "haxe", version.lixId]) != 0) {
+					log('failed to use Haxe ${version.lixId} - (skipping)');
+					continue;
+				}
 			}
 			var resolvedVersion = readVersion("haxe", ["-version"]);
-
 			log('resolved version: $resolvedVersion');
 			if (installLibraries(mapConcat([version.installLibraries, versionParams.installLibraries])) != 0) {
 				log('failed to download version specific libraries - (skipping)');
@@ -580,11 +589,15 @@ class Benchmark {
 	}
 
 	static function readVersion(command:String, args:Array<String>):String {
-		var proc = new sys.io.Process(command, args);
-		proc.exitCode();
-		var version = (proc.stdout.readAll().toString() + proc.stderr.readAll().toString()).trim();
-		proc.close();
-		return version;
+		try {
+			var proc = new sys.io.Process(command, args);
+			proc.exitCode();
+			var version = (proc.stdout.readAll().toString() + proc.stderr.readAll().toString()).trim();
+			proc.close();
+			return version;
+		} catch (e:Dynamic) {
+			return "n/a";
+		}
 	}
 
 	static function logEnvVars() {
