@@ -1,3 +1,2 @@
 -cp ../../src
--lib benchmark-helper
 --run BMDox

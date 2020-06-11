@@ -4,7 +4,7 @@ import haxe.Json;
 import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
-import data.TestRun;
+import benchmark.data.TestRun;
 
 using StringTools;
 
@@ -229,30 +229,7 @@ class Benchmark {
 			}
 		];
 		var vers:Array<Version> = [
-			{
-				name: "Haxe 3",
-				id: "haxe3",
-				lixId: "3.4.7",
-				env: [],
-				jsonOutput: "haxe3.json",
-				targets: haxe3targets
-			},
-			{
-				name: "Haxe 4",
-				id: "haxe4",
-				lixId: "4.1.1",
-				env: [],
-				jsonOutput: "haxe4.json",
-				targets: haxe4targets
-			},
-			{
-				name: "Haxe nightly",
-				id: "haxe-nightly",
-				lixId: "nightly",
-				env: [],
-				jsonOutput: "haxe-nightly.json",
-				targets: haxeNightlytargets
-			},
+			#if use_haxe_path
 			{
 				name: "Haxe (PATH)",
 				id: "haxe-path",
@@ -261,6 +238,30 @@ class Benchmark {
 				jsonOutput: "haxe-path.json",
 				targets: haxeNightlytargets
 			}
+			#else
+			{
+				name: "Haxe 3",
+				id: "haxe3",
+				lixId: "3.4.7",
+				env: [],
+				jsonOutput: "haxe3.json",
+				targets: haxe3targets
+			}, {
+				name: "Haxe 4",
+				id: "haxe4",
+				lixId: "4.1.1",
+				env: [],
+				jsonOutput: "haxe4.json",
+				targets: haxe4targets
+			}, {
+				name: "Haxe nightly",
+				id: "haxe-nightly",
+				lixId: "nightly",
+				env: [],
+				jsonOutput: "haxe-nightly.json",
+				targets: haxeNightlytargets
+			}
+			#end
 		];
 		vers;
 	};

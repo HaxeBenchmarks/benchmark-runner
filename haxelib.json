@@ -1,0 +1,19 @@
+{
+	"name": "benchmark-runner",
+	"url": "https://github.com/HaxeBenchmarks/benchmark-runner",
+	"license": "MIT",
+	"tags": [
+		"cli",
+		"benchmark",
+		"runner"
+	],
+	"description": "A runner lib for HaxeBenchmarks",
+	"version": "1.0.0",
+	"releasenote": "",
+	"contributors": [
+		"AlexHaxe",
+		"Aurel300"
+	],
+	"dependencies": {},
+	"classPath": "src"
+}
