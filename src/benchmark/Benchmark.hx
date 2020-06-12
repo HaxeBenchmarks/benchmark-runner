@@ -168,6 +168,7 @@ class Benchmark {
 		];
 
 	public static var VERSIONS:Array<Version> = {
+		#if with_haxe3
 		var haxe3targets:Array<Target> = [
 			for (target in createTargets()) {
 				switch (target.id) {
@@ -200,6 +201,7 @@ class Benchmark {
 				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 			}
 		]);
+		#end
 		var haxe4targets:Array<Target> = [
 			for (target in createTargets()) {
 				switch (target.id) {
@@ -239,6 +241,7 @@ class Benchmark {
 				targets: haxeNightlytargets
 			}
 			#else
+			#if with_haxe3
 			{
 				name: "Haxe 3",
 				id: "haxe3",
@@ -246,7 +249,9 @@ class Benchmark {
 				env: [],
 				jsonOutput: "haxe3.json",
 				targets: haxe3targets
-			}, {
+			},
+			#end
+			{
 				name: "Haxe 4",
 				id: "haxe4",
 				lixId: "4.1.1",
