@@ -31,10 +31,10 @@ Runs benchmark for all targets using Haxe 4.0.5 and Haxe nightly.
 
 Available versions are:
 
-- `haxe3` for Haxe 3.4.7
+- `haxe3` for Haxe 3.4.7 retired - requires `-D with_haxe3`
 - `haxe4` for Haxe 4.0.5
 - `haxe-nightly` for latest Haxe nightly build
-- `haxe-path` for any Haxe found in the `PATH` (skips `lix install` and `lix use`)
+- `haxe-path` for any Haxe found in the `PATH` (skips `lix install` and `lix use`) - requires `-D use_haxe_path`
 
 ## Running a benchmark case for specific targets
 
@@ -71,3 +71,9 @@ Available targets are:
 You can set `BENCHMARK_KEEP_BINARY=keep` to not delete binary folder after a run. 
 Usually you want a clean out folder when switching between versions, but if you run a single version and / or target it can make sense to keep the binaries, 
 so you can dissect them.
+
+## running benchmarks against a specific version of Haxe
+
+You can set `BENCHMARK_HAXE_PR=<name>` where `<name>` is the name of a folder in your local lix cache (`~/haxe/versions` on Linux). If you want to run benchmarks against a git version of Haxe you can symlink your git folder as `~/haxe/versions/git` and set `BENCHMARK_HAXE_PR=git`. Running `haxe run.hxml` will use your git version instead of Haxe nightly.
+
+Note: everything will be set up for a Haxe nightly run, so running any custom Haxe 3 version will most likely not work.
