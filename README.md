@@ -32,7 +32,7 @@ Runs benchmark for all targets using Haxe 4.0.5 and Haxe nightly.
 Available versions are:
 
 - `haxe3` for Haxe 3.4.7 retired - requires `-D with_haxe3`
-- `haxe4` for Haxe 4.0.5
+- `haxe4` for Haxe 4.1.2
 - `haxe-nightly` for latest Haxe nightly build
 - `haxe-path` for any Haxe found in the `PATH` (skips `lix install` and `lix use`) - requires `-D use_haxe_path`
 
