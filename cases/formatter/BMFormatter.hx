@@ -37,7 +37,7 @@ class BMFormatter {
 					"hxargs" => "haxelib:/hxargs#3.0.2",
 					"hxjsonast" => "haxelib:/hxjsonast#1.0.1",
 					"hxparse" => "gh://github.com/Simn/hxparse#f61faa2021f2abb85360f997ff72c4156c891adc",
-					"json2object" => "haxelib:/json2object#3.6.4",
+					"json2object" => "gh://github.com/elnabo/json2object#a6845b4826151271dd34c69631ffda0886abd562",
 					"tokentree" => "haxelib:/tokentree#1.0.23"
 				]
 			}, // target compile
