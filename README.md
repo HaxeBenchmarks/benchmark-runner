@@ -1,6 +1,6 @@
 # `benchmark-runner`
 
-This is a WIP benchmark runner for [`benchs.haxe.org`](https://benchs.haxe.org/). The library code is located in [`src`](src) and contains the main benchmark runner class as well as data structures to define Haxe versions, Haxe targets, benchmark compilations, and benchmark executions. Individual benchmarks are located in [`cases`](cases). This project requires `lix` (with shimmed `haxe` and `haxelib`) and `timeout` to be available in the `PATH`. The benchmark cases should be executed using at least Haxe 4.1, the runner then invokes `lix` to switch versions at runtime.
+This is a WIP benchmark runner for [`benchs.haxe.org`](https://benchs.haxe.org/). The library code is located in [`src`](src) and contains the main benchmark runner class as well as data structures to define Haxe versions, Haxe targets, benchmark compilations, and benchmark executions. Individual benchmarks are located in [`cases`](cases). This project requires `lix` (with shimmed `haxe` and `haxelib`) and `timeout` to be available in the `PATH`. The benchmark cases should be executed using at least Haxe 4.2, the runner then invokes `lix` to switch versions at runtime.
 
 ## Running a benchmark case - all versions and all targets
 
@@ -27,12 +27,12 @@ You might be able to ignore them and setup tooling in your path and then run spe
 - `export BENCHMARK_VERSIONS=haxe-nightly` or `set BENCHMARK_VERSIONS=haxe4,haxe-nightly`
 - `npx haxe run.hxml`
 
-Runs benchmark for all targets using Haxe 4.0.5 and Haxe nightly.
+Runs benchmark for all targets using Haxe 4.2.1 and Haxe nightly.
 
 Available versions are:
 
 - `haxe3` for Haxe 3.4.7 retired - requires `-D with_haxe3`
-- `haxe4` for Haxe 4.1.5
+- `haxe4` for Haxe 4.2.1
 - `haxe-nightly` for latest Haxe nightly build
 - `haxe-path` for any Haxe found in the `PATH` (skips `lix install` and `lix use`) - requires `-D use_haxe_path`
 
