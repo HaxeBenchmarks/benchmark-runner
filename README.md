@@ -27,12 +27,12 @@ You might be able to ignore them and setup tooling in your path and then run spe
 - `export BENCHMARK_VERSIONS=haxe-nightly` or `set BENCHMARK_VERSIONS=haxe4,haxe-nightly`
 - `npx haxe run.hxml`
 
-Runs benchmark for all targets using Haxe 4.2.3 and Haxe nightly.
+Runs benchmark for all targets using Haxe 4.2.4 and Haxe nightly.
 
 Available versions are:
 
 - `haxe3` for Haxe 3.4.7 retired - requires `-D with_haxe3`
-- `haxe4` for Haxe 4.2.3
+- `haxe4` for Haxe 4.2.4
 - `haxe-nightly` for latest Haxe nightly build
 - `haxe-path` for any Haxe found in the `PATH` (skips `lix install` and `lix use`) - requires `-D use_haxe_path`
 
