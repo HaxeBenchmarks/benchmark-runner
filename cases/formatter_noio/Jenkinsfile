@@ -43,5 +43,10 @@ pipeline {
                 build job: 'Benchmarks/cases%2Fjson', parameters: [string(name: 'HAXE_BRANCH', value: "")], wait: false
             }
         }
-   }
+    }
+    post { 
+        failure { 
+            emailext attachLog: true, body: '', subject: '[Haxe-Benchmarks Formatter No I/O] failed build job', to: 'jenkins'
+        }
+    }
 }

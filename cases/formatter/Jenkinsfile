@@ -43,4 +43,9 @@ pipeline {
             }
         }
     }
+    post { 
+        failure { 
+            emailext attachLog: true, body: '', subject: '[Haxe-Benchmarks Formatter] failed build job', to: 'jenkins'
+        }
+    }
 }

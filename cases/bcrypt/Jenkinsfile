@@ -41,4 +41,9 @@ pipeline {
             }
         }
     }
+    post { 
+        failure { 
+            emailext attachLog: true, body: '', subject: '[Haxe-Benchmarks BCrypt] failed build job', to: 'jenkins'
+        }
+    }
 }

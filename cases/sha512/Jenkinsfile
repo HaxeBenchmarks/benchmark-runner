@@ -41,4 +41,9 @@ pipeline {
             }
         }
     }
+    post { 
+        failure { 
+            emailext attachLog: true, body: '', subject: '[Haxe-Benchmarks SHA512] failed build job', to: 'jenkins'
+        }
+    }
 }
