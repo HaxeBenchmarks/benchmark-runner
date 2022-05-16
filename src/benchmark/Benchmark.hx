@@ -516,16 +516,50 @@ class Benchmark {
 			}
 			// record data
 			if (versionOutputs.length > 0) {
-				var archive:Array<TestRun> = FileSystem.exists(version.jsonOutput) ? Json.parse(File.getContent(version.jsonOutput)) : [];
-				archive.push({
+				archiveData({
 					date: runDate.toString(),
 					haxeVersion: resolvedVersion,
 					toolVersions: detectedTools,
 					targets: versionOutputs
-				});
-				File.saveContent(version.jsonOutput, Json.stringify(archive));
+				}, version.jsonOutput, runDate);
 			}
 		}
+	}
+
+	static function archiveData(newRun:TestRun, fileName:String, runDate:Date) {
+		var cutoffDate = DateTools.delta(runDate, -DateTools.days(180));
+		var cutoffYearMonth = cutoffDate.getFullYear() * 100 + cutoffDate.getMonth() + 1;
+		var oldArchive:Array<TestRun> = FileSystem.exists(fileName) ? Json.parse(File.getContent(fileName)) : [];
+		var newArchive:Array<TestRun> = [];
+		var yearlyArchives = new Map<Int, Array<TestRun>>();
+		for (entry in oldArchive) {
+			var reg = ~/^([0-9]{4})-([0-9]{2})/;
+			if (!reg.match(entry.date)) {
+				newArchive.push(entry);
+				continue;
+			}
+			var entryYearMonth = Std.parseInt(reg.matched(1) + reg.matched(2));
+			if (entryYearMonth > cutoffYearMonth) {
+				newArchive.push(entry);
+				continue;
+			}
+			var entryYear = Std.int(entryYearMonth / 100);
+			var yearArchive:Array<TestRun> = [];
+			if (yearlyArchives.exists(entryYear)) {
+				yearArchive = yearlyArchives.get(entryYear);
+			} else {
+				yearlyArchives.set(entryYear, yearArchive);
+			}
+			yearArchive.push(entry);
+		}
+		for (year => entries in yearlyArchives) {
+			var yearFileName = '${fileName}.$year';
+			var archive:Array<TestRun> = FileSystem.exists(yearFileName) ? Json.parse(File.getContent(yearFileName)) : [];
+			archive = archive.concat(entries);
+			File.saveContent(yearFileName, Json.stringify(archive));
+		}
+		newArchive.push(newRun);
+		File.saveContent(fileName, Json.stringify(newArchive));
 	}
 
 	static function replaceVERSIONSwhenHaxePR() {
