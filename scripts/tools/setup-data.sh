@@ -11,19 +11,32 @@ mkdir -p benchmark-run
 if [ ! -d $BENCHMARK_RESULTS_BASE/$NAME ]; then
     mkdir $BENCHMARK_RESULTS_BASE/$NAME
 fi
-if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe3.json ]; then
-    echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe3.json
-fi
-if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe4.json ]; then
-    echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe4.json
-fi
-if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json ]; then
-    echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json
-fi
-if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe-pr.json ]; then
-    echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe-pr.json
-fi
-ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe3.json benchmark-run/
-ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe4.json benchmark-run/
-ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json benchmark-run/
-ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe-pr.json benchmark-run/
+
+function linkDatafiles() {
+    YEAR=$1
+    if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe3.json$YEAR ]; then
+        echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe3.json$YEAR
+    fi
+    if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe4.json$YEAR ]; then
+        echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe4.json$YEAR
+    fi
+    if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json$YEAR ]; then
+        echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json$YEAR
+    fi
+    if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe-pr.json$YEAR ]; then
+        echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe-pr.json$YEAR
+    fi
+    ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe3.json$YEAR benchmark-run/
+    ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe4.json$YEAR benchmark-run/
+    ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json$YEAR benchmark-run/
+    ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe-pr.json$YEAR benchmark-run/
+}
+
+linkDatafiles "";
+linkDatafiles ".2019";
+linkDatafiles ".2020";
+linkDatafiles ".2021";
+linkDatafiles ".2022";
+linkDatafiles ".2023";
+linkDatafiles ".2024";
+linkDatafiles ".2025";
