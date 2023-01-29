@@ -12,7 +12,7 @@ You will find test results in console output and in three JSON files inside subf
 For C++ and Hashlink targets you need environment variable `TOOLING_BASE` set to a folder that holds subfolders with different tool / library versions:
 
 - `hashlink/hashlink-1.1` - installation of version 1.1 of Hashlink for Haxe 3
-- `hashlink/hashlink-1.11` - installation of version 1.11 of Hashlink for Haxe 4
+- `hashlink/hashlink-1.13` - installation of version 1.13 of Hashlink for Haxe 4
 - `hashlink/hashlink-immix` - installation of immix GC branch of Hashlink for Haxe 4
 - `hxcpp/hxcppHaxe3` - latest hxcpp with Cppia host compiled for Haxe 3
 - `hxcpp/hxcppHaxe4` - latest hxcpp with Cppia host compiled for Haxe 4
@@ -66,10 +66,10 @@ Available targets are:
 - `php`
 - `python`
 
-## stop benchmark runner from deleting out folder 
+## stop benchmark runner from deleting out folder
 
-You can set `BENCHMARK_KEEP_BINARY=keep` to not delete binary folder after a run. 
-Usually you want a clean out folder when switching between versions, but if you run a single version and / or target it can make sense to keep the binaries, 
+You can set `BENCHMARK_KEEP_BINARY=keep` to not delete binary folder after a run.
+Usually you want a clean out folder when switching between versions, but if you run a single version and / or target it can make sense to keep the binaries,
 so you can dissect them.
 
 ## running benchmarks against a specific version of Haxe

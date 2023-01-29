@@ -594,7 +594,7 @@ class Benchmark {
 		toolVersions.set(Java, extractWord(readVersion("java", ["--version"]), 1));
 
 		// TODO automatically detect hxcpp and HL versions
-		toolVersions.set(Hl, "1.11");
+		toolVersions.set(Hl, "1.13");
 
 		return toolVersions;
 	}
