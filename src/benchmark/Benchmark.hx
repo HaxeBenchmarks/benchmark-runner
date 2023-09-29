@@ -82,21 +82,21 @@ class Benchmark {
 				run: '$SCRIPTS_BASE/hl-1.13/run-hlc.sh out/hlc/hlc',
 				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 			},
-			{
-				name: "HashLink Immix",
-				id: "hlGCImmix",
-				compile: "-hl out/hl.hl",
-				run: '$SCRIPTS_BASE/hl-immix/run-hl.sh out/hl.hl',
-				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
-			},
-			{
-				name: "HashLink/C Immix",
-				id: "hlcGCImmix",
-				compile: "-hl out/hlc/hlc.c",
-				postCompile: '$SCRIPTS_BASE/hl-immix/compile.sh out/hlc',
-				run: '$SCRIPTS_BASE/hl-immix/run-hlc.sh out/hlc/hlc',
-				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
-			},
+			// { // disabled
+			// 	name: "HashLink Immix",
+			// 	id: "hlGCImmix",
+			// 	compile: "-hl out/hl.hl",
+			// 	run: '$SCRIPTS_BASE/hl-immix/run-hl.sh out/hl.hl',
+			// 	installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
+			// },
+			// {
+			// 	name: "HashLink/C Immix",
+			// 	id: "hlcGCImmix",
+			// 	compile: "-hl out/hlc/hlc.c",
+			// 	postCompile: '$SCRIPTS_BASE/hl-immix/compile.sh out/hlc',
+			// 	run: '$SCRIPTS_BASE/hl-immix/run-hlc.sh out/hlc/hlc',
+			// 	installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
+			// },
 			// java
 			{
 				name: "Java",
