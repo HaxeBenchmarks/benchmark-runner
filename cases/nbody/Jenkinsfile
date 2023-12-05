@@ -37,7 +37,7 @@ pipeline {
                 environment name: 'BENCHMARK_HAXE_PR', value: ''
             }
             steps {
-                build job: 'Benchmarks/cases%2Fsha256', parameters: [string(name: 'HAXE_BRANCH', value: "")], wait: false
+                build job: 'Benchmark_sha256', parameters: [string(name: 'HAXE_BRANCH', value: "")], wait: false
             }
         }
     }
