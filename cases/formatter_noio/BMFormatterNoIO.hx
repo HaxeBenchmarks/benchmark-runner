@@ -23,7 +23,7 @@ class BMFormatterNoIO {
 					"hx3compat" => "haxelib:/hx3compat#1.0.3",
 					"hxargs" => "gh://github.com/simn/hxargs#1d8ec84f641833edd6f0cb2e4290b7524fd27219",
 					"hxjsonast" => "haxelib:/hxjsonast#1.0.1",
-					"hxparse" => "gh://github.com/Simn/hxparse#864064538084d75611785bd561c8517e56f2ebc4",
+					"hxparse" => "gh://github.com/Simn/hxparse#876070ec62a4869de60081f87763e23457a3bda8",
 					"json2object" => "gh://github.com/elnabo/json2object#a75859de1e966c09e73591b6c9186086c143fe60",
 					"tokentree" => "haxelib:/tokentree#1.0.23"
 				]
