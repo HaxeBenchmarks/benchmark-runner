@@ -25,7 +25,7 @@ pipeline {
                 echo 'install hxb data'
                 sh '''
                     rm -rf cases/formatter_noio/benchmark-run/hxb
-                    cp -r $BENCHMARK_RESULTS_BASE/formatter/hxb cases/formatter_noio/benchmark-run
+                    cp -r $BENCHMARK_RESULTS_BASE/formatter/hxb cases/formatter_noio/benchmark-run 2>/dev/null || :
                 '''
             }
         }        

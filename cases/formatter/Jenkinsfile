@@ -46,7 +46,7 @@ pipeline {
             steps {
                 echo 'backup hxb data'
                 sh '''
-                    cp -r cases/formatter/benchmark-run/hxb $BENCHMARK_RESULTS_BASE/formatter/
+                    cp -r cases/formatter/benchmark-run/hxb $BENCHMARK_RESULTS_BASE/formatter/ 2>/dev/null || :
                 '''
             }
         }
