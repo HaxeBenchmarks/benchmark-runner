@@ -23,8 +23,8 @@ class BMDox {
 					installLibraries: [
 						// "hx3compat" => "haxelib:/hx3compat#1.0.3",
 						"hxargs" => "gh://github.com/simn/hxargs#1d8ec84f641833edd6f0cb2e4290b7524fd27219",
-						"hxparse" => "gh://github.com/Simn/hxparse#864064538084d75611785bd561c8517e56f2ebc4",
-						"hxtemplo" => "gh://github.com/Simn/hxtemplo",
+						"hxparse" => "gh://github.com/Simn/hxparse#876070ec62a4869de60081f87763e23457a3bda8",
+						"hxtemplo" => "gh://github.com/Simn/hxtemplo#760a81368d1a877e9fd43fc7bf0d1de83e654f3e",
 						"markdown" => "haxelib:markdown"
 					]
 				}
