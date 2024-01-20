@@ -52,7 +52,7 @@ class BMFormatterNoIO {
 		if (haxePR != null && haxePR.length > 0) {
 			haxePR = haxePR.toLowerCase();
 			if (haxePR.contains("hxb")) {
-				var hxbOutput:String = Path.join(["hxb",, '${haxe}_$target']);
+				var hxbOutput:String = Path.join(["hxb", '${haxe}_$target']);
 				return ["--hxb-lib" => hxbOutput];
 			}
 		}
