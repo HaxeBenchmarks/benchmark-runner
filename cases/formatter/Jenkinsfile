@@ -20,6 +20,15 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', depth: 1, noTags: false, reference: '', shallow: true]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/HaxeBenchmarks/benchmark-runner.git']]])
             }
         }
+        stage('clean hxb data') {
+            steps {
+                echo 'backup hxb data'
+                sh '''
+                    rm -rf cases/formatter/benchmark-run/hxb
+                    rm -rf $BENCHMARK_RESULTS_BASE/formatter/hxb
+                '''
+            }
+        }
         stage('run benchmark') {
             steps {
                 echo 'run benchmark'
@@ -30,6 +39,14 @@ pipeline {
                     ../../scripts/tools/setup-data.sh formatter
                     lix download
                     haxe run.hxml
+                '''
+            }
+        }
+        stage('backup hxb data') {
+            steps {
+                echo 'backup hxb data'
+                sh '''
+                    cp -r cases/formatter/benchmark-run/hxb $BENCHMARK_RESULTS_BASE/formatter/
                 '''
             }
         }

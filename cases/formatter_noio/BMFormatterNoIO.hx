@@ -1,5 +1,8 @@
+import haxe.io.Path;
 import sys.FileSystem;
 import benchmark.Benchmark;
+
+using StringTools;
 
 class BMFormatterNoIO {
 	public static function main():Void {
@@ -31,6 +34,7 @@ class BMFormatterNoIO {
 			(haxe, target) -> {
 				useLibraries: ["tokentree", "haxeparser", "hxparse", "json2object", "hxargs", "formatter"],
 				classPaths: [".."],
+				compileArgs: buildHxbLibArg(haxe, target),
 				main: "BMFormatterNoIOCode"
 			}, // target run
 			(haxe, target) -> {
@@ -38,5 +42,20 @@ class BMFormatterNoIO {
 					timeout: 5 * 60
 				};
 			});
+	}
+
+	static function buildHxbLibArg(haxe:String, target:String):Null<Map<String, String>> {
+		if (haxe != "haxe-pr") {
+			return null;
+		}
+		var haxePR:Null<String> = Sys.getEnv("BENCHMARK_HAXE_PR");
+		if (haxePR != null && haxePR.length > 0) {
+			haxePR = haxePR.toLowerCase();
+			if (haxePR.contains("hxb")) {
+				var hxbOutput:String = Path.join(["hxb",, '${haxe}_$target']);
+				return ["--hxb-lib" => hxbOutput];
+			}
+		}
+		return null;
 	}
 }

@@ -20,6 +20,15 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', depth: 1, noTags: false, reference: '', shallow: true]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/HaxeBenchmarks/benchmark-runner.git']]])
             }
         }
+        stage('install hxb data') {
+            steps {
+                echo 'install hxb data'
+                sh '''
+                    rm -rf cases/formatter_noio/benchmark-run/hxb
+                    cp -r $BENCHMARK_RESULTS_BASE/formatter/hxb cases/formatter_noio/benchmark-run
+                '''
+            }
+        }        
         stage('run benchmark') {
             steps {
                 echo 'run benchmark'
