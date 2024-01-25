@@ -45,6 +45,13 @@ class BMFormatterNoIO {
 	}
 
 	static function buildHxbLibArg(haxe:String, target:String):Null<Map<String, String>> {
+		function makeOutputFileName() {
+			return Path.join(["hxb", '${haxe}_$target']);
+		}
+
+		if (haxe == "haxe-nightly") {
+			return ["--hxb-lib" => makeOutputFileName()];
+		}
 		if (haxe != "haxe-pr") {
 			return null;
 		}
@@ -52,8 +59,7 @@ class BMFormatterNoIO {
 		if (haxePR != null && haxePR.length > 0) {
 			haxePR = haxePR.toLowerCase();
 			if (haxePR.contains("hxb")) {
-				var hxbOutput:String = Path.join(["hxb", '${haxe}_$target']);
-				return ["--hxb-lib" => hxbOutput];
+				return ["--hxb-lib" => makeOutputFileName()];
 			}
 		}
 		return null;

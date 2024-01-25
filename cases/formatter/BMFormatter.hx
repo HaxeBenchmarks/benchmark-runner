@@ -63,6 +63,17 @@ class BMFormatter {
 	}
 
 	static function buildHxbArg(haxe:String, target:String):Null<Map<String, String>> {
+		function makeOutputFileName() {
+			var hxbOutput:String = Path.join(["hxb", '${haxe}_$target']);
+			if (FileSystem.exists(hxbOutput)) {
+				FileSystem.deleteFile(hxbOutput);
+			}
+			return hxbOutput;
+		}
+
+		if (haxe == "haxe-nightly") {
+			return ["--hxb" => makeOutputFileName()];
+		}
 		if (haxe != "haxe-pr") {
 			return null;
 		}
@@ -70,11 +81,7 @@ class BMFormatter {
 		if (haxePR != null && haxePR.length > 0) {
 			haxePR = haxePR.toLowerCase();
 			if (haxePR.contains("hxb")) {
-				var hxbOutput:String = Path.join(["hxb", '${haxe}_$target']);
-				if (FileSystem.exists(hxbOutput)) {
-					FileSystem.deleteFile(hxbOutput);
-				}
-				return ["--hxb" => hxbOutput];
+				return ["--hxb" => makeOutputFileName()];
 			}
 		}
 		return null;
