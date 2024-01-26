@@ -45,7 +45,9 @@ pipeline {
             }
         }
         stage('console output parsing') {
-            logParser projectRulePath: 'benchmark_log_parsing.txt', showGraphs: true, useProjectRule: true
+            steps {
+                logParser projectRulePath: 'benchmark_log_parsing.txt', showGraphs: true, useProjectRule: true
+            }
         }
     }
     post { 
