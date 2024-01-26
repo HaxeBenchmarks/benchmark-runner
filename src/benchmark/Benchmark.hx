@@ -564,10 +564,12 @@ class Benchmark {
 
 	static function replaceVERSIONSwhenHaxePR() {
 		var haxePR:Null<String> = Sys.getEnv("BENCHMARK_HAXE_PR");
+		var haxeHXB:String = Sys.getEnv("BENCHMARK_HAXE_HXB") ?? "0";
 		if (haxePR == null || haxePR.length <= 0) {
 			return;
 		}
 		log('BENCHMARK_HAXE_PR=$haxePR');
+		log('BENCHMARK_HAXE_HXB=$haxeHXB');
 		var versions:Array<Version> = VERSIONS.filter(v -> v.id == "haxe-nightly");
 		if (versions.length != 1) {
 			log("Haxe nightly version not found - no Haxe PR run!!");

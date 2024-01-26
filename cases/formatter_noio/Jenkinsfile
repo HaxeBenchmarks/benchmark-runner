@@ -8,10 +8,12 @@ pipeline {
 
     parameters {
         string(name: 'HAXE_BRANCH', defaultValue: '', description: 'Haxe branch to build')
+        string(name: 'HXB_ENABLED', defaultValue: '0', description: 'Haxe branch has hxb support')
     }
 
     environment {
         BENCHMARK_HAXE_PR = "${params.HAXE_BRANCH}"
+        BENCHMARK_HAXE_HXB = "${params.HXB_ENABLED}"
     }
 
     stages {
@@ -49,8 +51,11 @@ pipeline {
                 environment name: 'BENCHMARK_HAXE_PR', value: ''
             }
             steps {
-                build job: 'Benchmark_json', parameters: [string(name: 'HAXE_BRANCH', value: "")], wait: false
+                build job: 'Benchmark_json', parameters: [string(name: 'HAXE_BRANCH', value: ""), string(name: 'HXB_ENABLED', value: "0")], wait: false
             }
+        }
+        stage('console output parsing') {
+            logParser projectRulePath: 'benchmark_log_parsing.txt', showGraphs: true, useProjectRule: true
         }
     }
     post { 

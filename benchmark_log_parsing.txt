@@ -1,0 +1,5 @@
+start / compiling /
+
+ok /\(success\)/
+
+error /\(FAILED\)/

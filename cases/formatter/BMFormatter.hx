@@ -77,12 +77,9 @@ class BMFormatter {
 		if (haxe != "haxe-pr") {
 			return null;
 		}
-		var haxePR:Null<String> = Sys.getEnv("BENCHMARK_HAXE_PR");
-		if (haxePR != null && haxePR.length > 0) {
-			haxePR = haxePR.toLowerCase();
-			if (haxePR.contains("hxb")) {
-				return ["--hxb" => makeOutputFileName()];
-			}
+		var haxePR:String = Sys.getEnv("BENCHMARK_HAXE_HXB") ?? "0";
+		if (haxePR == "1") {
+			return ["--hxb" => makeOutputFileName()];
 		}
 		return null;
 	}
