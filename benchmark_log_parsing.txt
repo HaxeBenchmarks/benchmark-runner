@@ -3,3 +3,7 @@ start / compiling /
 ok /\(success\)/
 
 error /\(FAILED\)/
+error /exit code/
+error /(?i)exception/
+
+warning /(?i)warning/
