@@ -1,3 +1,4 @@
+start /lix "scope"/
 start / compiling /
 
 ok /\(success\)/
@@ -5,5 +6,6 @@ ok /\(success\)/
 error /\(FAILED\)/
 error /exit code/
 error /(?i)exception/
+error /error:/
 
 warning /(?i)warning/
