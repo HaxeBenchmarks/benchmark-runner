@@ -218,9 +218,9 @@ class Benchmark {
 		var haxeNightlytargets:Array<Target> = [
 			for (target in createTargets()) {
 				switch (target.id) {
-					case "cs":
-						target.installLibraries = ["hxcs" => "haxelib:/hxcs#4.0.0-alpha"];
-					case "java" | "jvm":
+					case "cs" | "java":
+						continue;
+					case "jvm":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
 					case "cppia" | "cpp" | "cppGCGen":
 						target.init = '$SCRIPTS_BASE/hxcpp/setup-haxeNightly.sh';
