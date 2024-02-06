@@ -107,9 +107,8 @@ class Benchmark {
 			{
 				name: "JVM",
 				id: "jvm",
-				compile: "-java out/jvm",
-				defines: ["jvm" => ""],
-				run: "java -jar out/jvm/Main.jar"
+				compile: "--jvm out/jvm/jvm.jar",
+				run: "java -jar out/jvm/jvm.jar"
 			},
 			// js
 			{
