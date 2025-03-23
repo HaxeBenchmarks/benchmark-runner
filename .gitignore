@@ -4,3 +4,4 @@ scripts/tools/benchmark-run
 *.lua
 cases/dox/dox/
 cases/dox/api.haxe.org/
+tooling/

@@ -71,15 +71,15 @@ class Benchmark {
 				name: "HashLink",
 				id: "hl",
 				compile: "-hl out/hl.hl",
-				run: '$SCRIPTS_BASE/hl-1.13/run-hl.sh out/hl.hl',
+				run: '$SCRIPTS_BASE/hl-1.15/run-hl.sh out/hl.hl',
 				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 			},
 			{
 				name: "HashLink/C",
 				id: "hlc",
 				compile: "-hl out/hlc/hlc.c",
-				postCompile: '$SCRIPTS_BASE/hl-1.13/compile.sh out/hlc',
-				run: '$SCRIPTS_BASE/hl-1.13/run-hlc.sh out/hlc/hlc',
+				postCompile: '$SCRIPTS_BASE/hl-1.15/compile.sh out/hlc',
+				run: '$SCRIPTS_BASE/hl-1.15/run-hlc.sh out/hlc/hlc',
 				installLibraries: ["hashlink" => "haxelib:/hashlink#0.1.0"]
 			},
 			// { // disabled
