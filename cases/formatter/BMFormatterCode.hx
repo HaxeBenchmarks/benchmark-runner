@@ -23,6 +23,13 @@ class BMFormatterCode {
 		try {
 			new BMFormatterCode();
 		} catch (e:Any) {
+			#if python
+			if ('$e' == "SystemExit(0)") {
+				// Python throws a SystemExit exception when calling sys.exit(x)
+				// so in case the run was fine we need to make sure CI doesn't think it failed
+				Sys.exit(0);
+			}
+			#end
 			trace(e);
 			Sys.exit(1);
 		}
