@@ -54,11 +54,8 @@ pipeline {
         }
 
         stage('trigger next benchmark') {
-            when { 
-                environment name: 'BENCHMARK_HAXE_PR', value: ''
-            }
             steps {
-                build job: 'Benchmark_formatter_noio', parameters: [string(name: 'HAXE_BRANCH', value: ""), string(name: 'HXB_ENABLED', value: "0")], wait: false
+                build job: 'Benchmark_formatter_noio', parameters: [string(name: 'HAXE_BRANCH', value: env.BENCHMARK_HAXE_PR), string(name: 'HXB_ENABLED', value: env.BENCHMARK_HAXE_HXB)], wait: false
             }
         }
         stage('console output parsing') {
