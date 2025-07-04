@@ -20,6 +20,9 @@ function linkDatafiles() {
     if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe4.json$YEAR ]; then
         echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe4.json$YEAR
     fi
+    if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe5.json$YEAR ]; then
+        echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe5.json$YEAR
+    fi
     if [ ! -f $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json$YEAR ]; then
         echo "[]" > $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json$YEAR
     fi
@@ -28,6 +31,7 @@ function linkDatafiles() {
     fi
     ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe3.json$YEAR benchmark-run/
     ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe4.json$YEAR benchmark-run/
+    ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe5.json$YEAR benchmark-run/
     ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe-nightly.json$YEAR benchmark-run/
     ln -sfn $BENCHMARK_RESULTS_BASE/$NAME/haxe-pr.json$YEAR benchmark-run/
 }

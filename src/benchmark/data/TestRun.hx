@@ -19,6 +19,7 @@ typedef TargetResult = {
 enum DatasetType {
 	Haxe3;
 	Haxe4;
+	Haxe5;
 	HaxeNightly;
 	HaxePR;
 }

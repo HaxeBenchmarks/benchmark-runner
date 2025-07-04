@@ -215,6 +215,21 @@ class Benchmark {
 				target;
 			}
 		];
+		var haxe5targets:Array<Target> = [
+			for (target in createTargets()) {
+				switch (target.id) {
+					case "cs" | "java":
+						log('[haxe5] skipping ${target.name} (discontinued)');
+						continue;
+					case "jvm":
+						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
+					case "cppia" | "cpp" | "cppGCGen":
+						target.init = '$SCRIPTS_BASE/hxcpp/setup-haxe5.sh';
+					case _:
+				}
+				target;
+			}
+		];
 		var haxeNightlytargets:Array<Target> = [
 			for (target in createTargets()) {
 				switch (target.id) {
@@ -257,6 +272,13 @@ class Benchmark {
 				env: [],
 				jsonOutput: "haxe4.json",
 				targets: haxe4targets
+			}, {
+				name: "Haxe 5",
+				id: "haxe5",
+				lixId: "5.0.0-preview.1",
+				env: [],
+				jsonOutput: "haxe5.json",
+				targets: haxe5targets
 			}, {
 				name: "Haxe nightly",
 				id: "haxe-nightly",
