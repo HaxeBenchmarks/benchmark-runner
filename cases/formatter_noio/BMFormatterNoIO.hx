@@ -52,6 +52,9 @@ class BMFormatterNoIO {
 		if (haxe == "haxe-nightly") {
 			return ["--hxb-lib" => makeOutputFileName()];
 		}
+		if (haxe == "haxe5") {
+			return ["--hxb-lib" => makeOutputFileName()];
+		}
 		if (haxe != "haxe-pr") {
 			return null;
 		}
