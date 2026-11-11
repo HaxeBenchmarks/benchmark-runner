@@ -140,6 +140,7 @@ class Benchmark {
 				name: "Luajit",
 				id: "luajit",
 				compile: "-lua out/luajit.lua",
+				defines: ["lua-jit" => ""],
 				run: "luajit out/luajit.lua"
 			},
 			// neko
