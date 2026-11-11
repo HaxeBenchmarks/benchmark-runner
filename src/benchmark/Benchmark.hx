@@ -53,6 +53,12 @@ class Benchmark {
 				compile: "-cppia out/cppia.cppia",
 				run: "haxelib run hxcpp out/cppia.cppia"
 			},
+			{
+				name: "Cppia (JIT)",
+				id: "cppiaJit",
+				compile: "-cppia out/cppia-jit.cppia",
+				run: "haxelib run hxcpp out/cppia.cppia -jit"
+			},
 			// cs
 			{
 				name: "C#",
@@ -209,7 +215,7 @@ class Benchmark {
 						target.installLibraries = ["hxcs" => "haxelib:/hxcs#4.0.0-alpha"];
 					case "java" | "jvm":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
-					case "cppia" | "cpp" | "cppGCGen":
+					case "cppia" | "cppiaJit" | "cpp" | "cppGCGen":
 						target.init = '$SCRIPTS_BASE/hxcpp/setup-haxe4.sh';
 					case _:
 				}
@@ -224,7 +230,7 @@ class Benchmark {
 						continue;
 					case "jvm":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
-					case "cppia" | "cpp" | "cppGCGen":
+					case "cppia" | "cppiaJit" | "cpp" | "cppGCGen":
 						target.init = '$SCRIPTS_BASE/hxcpp/setup-haxe5.sh';
 					case _:
 				}
@@ -238,7 +244,7 @@ class Benchmark {
 						continue;
 					case "jvm":
 						target.installLibraries = ["hxjava" => "haxelib:/hxjava#4.0.0-alpha"];
-					case "cppia" | "cpp" | "cppGCGen":
+					case "cppia" | "cppiaJit" | "cpp" | "cppGCGen":
 						target.init = '$SCRIPTS_BASE/hxcpp/setup-haxeNightly.sh';
 					case _:
 				}
