@@ -40,6 +40,7 @@ class BMFormatterCode {
 
 		#if cppia
 		args.shift();
+		args.remove("-jit");
 		#else
 		if (Sys.getEnv("HAXELIB_RUN") == "1") {
 			if (args.length > 0) {
